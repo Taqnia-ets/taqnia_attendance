@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Taqnia Attendance</string>
+    <!-- Strings related to login -->
+    <string name="prompt_id">User ID</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_login">LOG IN</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome "</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!-- General Strings -->
+    <string name="unknown">"Unknown"</string>
+
+    <!-- Remote data source -->
+    <string name="error_message_general">Something went wrong, Please try again</string>
+    <string name="error_message_network">Please make sure you have a good network connection</string>
+    <string name="error_message_sign_in">Please sign in again</string>
+
+    <!-- Home -->
+    <string name="home">Home</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
+    <string name="title_enabel_gps">Enable Location</string>
+    <string name="msg_enabel_gps">Your Location Settings is set to \'Off\' Please Enable Location to use this app</string>
+    <string name="btn_location_setttings">LOCATION SETTINGS</string>
+    <string name="fake_location_not_allowed">Your Fake Location is detected</string>
+    <string name="overall_performance">Overall Performance</string>
+    <string name="total_late_hourse">Total late hours</string>
+    <string name="total_absent_daysse">Total absent days</string>
+
+    <!-- Success Dialog -->
+    <string name="succes">Success</string>
+
+    <!-- Permissions -->
+    <string name="msg_location_permission_required">Location permission is required</string>
+
+    <!-- Info -->
+    <string name="department">Department</string>
+    <string name="sub_department">Sub Department</string>
+</resources>

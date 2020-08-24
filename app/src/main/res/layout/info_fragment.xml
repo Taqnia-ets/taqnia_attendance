@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <variable
+            name="user"
+            type="com.example.taqniaattendance.data.model.user.User" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.taqniaattendance.ui.info.InfoViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="@dimen/dim_8_dp"
+            android:layout_marginTop="@dimen/dim_150_dp"
+            app:cardCornerRadius="@dimen/dim_30_dp"
+            android:layout_marginBottom="@dimen/dim_mince_20_dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llContent"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dim_40_dp"
+                android:paddingEnd="@dimen/dim_40_dp"
+                android:layout_marginTop="@dimen/dim_250_dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dim_12_dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivUserIcon"
+                        android:layout_width="@dimen/dim_40_dp"
+                        android:layout_height="@dimen/dim_40_dp"
+                        android:layout_marginEnd="@dimen/dim_10_dp"
+                        app:srcCompat="@drawable/ic_user_dark_bg"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toEndOf="@+id/ivUserIcon">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:text="@{viewmodel.savedUser.name}"
+                        android:includeFontPadding="false"
+                        android:layout_marginBottom="@dimen/dim_mince_2_dp"
+                        android:textSize="@dimen/dim_14_sp"
+                        android:textColor="@color/color_rich_black" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewmodel.savedUser.id}"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:textSize="@dimen/dim_14_sp"
+                        android:includeFontPadding="false"
+                        android:layout_marginTop="@dimen/dim_mince_2_dp"
+                        android:textColor="@color/color_rich_black" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dim_12_dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPhoneIcon"
+                        android:layout_width="@dimen/dim_40_dp"
+                        android:layout_height="@dimen/dim_40_dp"
+                        android:layout_marginEnd="@dimen/dim_10_dp"
+                        app:srcCompat="@drawable/ic_phone_dark_bg"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bahij_janna_bold"
+                            android:text="@{viewmodel.savedUser.phoneNumber}"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/dim_14_sp"
+                            android:textColor="@color/color_rich_black"
+                            android:layout_toEndOf="@+id/ivPhoneIcon"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivEmailIcon"
+                        android:layout_width="@dimen/dim_40_dp"
+                        android:layout_height="@dimen/dim_40_dp"
+                        android:layout_marginEnd="@dimen/dim_10_dp"
+                        app:srcCompat="@drawable/ic_mail_dark_bg"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:text="@{viewmodel.savedUser.email}"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/dim_14_sp"
+                        android:textColor="@color/color_rich_black"
+                        android:layout_toEndOf="@+id/ivEmailIcon"/>
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dim_80_dp"
+                    android:layout_height="@dimen/dim_80_dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_taqnia_trans"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_310_dp"
+            android:id="@+id/cvDepartment"
+            android:layout_marginTop="@dimen/dim_50_dp"
+            android:layout_marginStart="@dimen/dim_35_dp"
+            android:layout_marginEnd="@dimen/dim_35_dp"
+            app:cardCornerRadius="@dimen/dim_25_dp"
+            app:cardElevation="@dimen/dim_4_dp"
+            app:cardBackgroundColor="@color/color_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="5">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:paddingTop="@dimen/dim_7_dp">
+                    <View
+                        android:id="@+id/viewUnderLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim_1_dp"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/color_gainsboro" />
+
+                    <View
+                        android:layout_width="@dimen/dim_1_dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/viewHorizontalSeparator"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/dim_22_dp"
+                        android:layout_marginBottom="@dimen/dim_22_dp"
+                        android:layout_marginStart="@dimen/dim_27_dp"
+                        android:layout_marginEnd="@dimen/dim_27_dp"
+                        android:background="@color/color_gainsboro" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/viewHorizontalSeparator">
+
+                        <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:text="@string/department"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/dim_12_sp"
+                        android:textColor="@color/color_rich_black"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.savedUser.department}"
+                            android:textSize="@dimen/dim_12_sp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/color_dark_gray"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/viewHorizontalSeparator">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bahij_janna_bold"
+                            android:text="@string/sub_department"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/dim_12_sp"
+                            android:textColor="@color/color_rich_black" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.savedUser.subDepartment}"
+                            android:textSize="@dimen/dim_12_sp"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/color_dark_gray" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+</layout>

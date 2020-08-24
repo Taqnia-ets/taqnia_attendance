@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <data>
+
+            <variable
+                name="viewmodel"
+                type="com.example.taqniaattendance.ui.searching.VehiclesViewModel" />
+
+            <variable
+                name="punchType"
+                type="com.example.taqniaattendance.util.Constants.ApiConstants" />
+        </data>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/bg_taqnia"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rlHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:paddingTop="@dimen/dim_30_dp"
+                android:paddingBottom="@dimen/dim_20_dp"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/activity_horizontal_margin">
+
+                <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvGoodMorning"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dim_16_sp"
+                android:text="@string/welcome"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvUserName"
+                    android:textColor="@color/color_white"
+                    android:layout_toEndOf="@+id/tvGoodMorning"
+                    android:layout_marginStart="@dimen/dim_4_dp"
+                    android:fontFamily="@font/bahij_janna_bold"
+                    android:textSize="@dimen/dim_16_sp"
+                    android:text="@{viewmodel.userName}"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivInfo"
+                    android:layout_width="@dimen/dim_28_dp"
+                    android:layout_height="@dimen/dim_28_dp"
+                    android:padding="@dimen/dim_7_dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_info"
+                    android:onClick="@{() -> viewmodel.showUserInf()}"
+                    android:background="@drawable/shape_circle_cancan_color"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivNotifications"
+                    android:layout_width="@dimen/dim_28_dp"
+                    android:layout_height="@dimen/dim_28_dp"
+                    android:padding="@dimen/dim_6_dp"
+                    android:layout_marginEnd="@dimen/dim_8_dp"
+                    android:layout_toStartOf="@+id/ivInfo"
+                    android:src="@drawable/ic_notification"
+                    android:background="@drawable/shape_circle_cancan_color"/>
+
+            </RelativeLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_200_dp"
+                android:layout_above="@+id/rcvVehicles"
+                app:cardCornerRadius="@dimen/dim_30_dp"
+                android:elevation="@dimen/dim_4_dp"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="@dimen/dim_mince_25_dp"
+                android:backgroundTint="@color/color_white"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dim_20_dp"
+                android:layout_marginStart="@dimen/dim_35_dp"
+                android:layout_marginEnd="@dimen/dim_35_dp"
+                android:layout_marginBottom="@dimen/dim_15_dp"
+                app:cardElevation="@dimen/dim_5_dp"
+                android:layoutDirection="ltr"
+                app:cardBackgroundColor="@color/color_white"
+                android:layout_below="@+id/rlHeader">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/dim_15_dp"
+                    android:paddingBottom="@dimen/dim_5_dp"
+                    android:background="@color/color_white">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dim_17_sp"
+                        android:text="@string/overall_performance"
+                        android:includeFontPadding="false"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:textColor="@color/color_rich_black"/>
+
+                    <LinearLayout
+                        android:id="@+id/llInterval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvHeader"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="@dimen/dim_15_dp"
+                        android:gravity="center_horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.weekSummaryFirstDate}"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:layout_marginStart="@dimen/dim_5_dp"
+                            android:layout_marginEnd="@dimen/dim_5_dp"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewmodel.weekSummaryLastDate}"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llWeeklyHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="7"
+                        android:layout_marginStart="@dimen/dim_16_dp"
+                        android:layout_marginEnd="@dimen/dim_16_dp"
+                        android:layout_below="@+id/llInterval">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 0)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 1)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 2)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 3)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 4)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 5)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 6)}"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_height="wrap_content"
+                                android:layout_width="@dimen/dim_12_dp"
+                                app:srcCompat="@drawable/ic_minus"
+                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bcSummary"
+                        android:layout_marginTop="@dimen/dim_mince_15_dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim_100_dp"
+                        android:layout_below="@+id/llWeeklyHours"/>
+
+                    <LinearLayout
+                        android:id="@+id/llWeekDays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal"
+                        android:weightSum="7"
+                        android:layout_marginStart="@dimen/dim_16_dp"
+                        android:layout_marginEnd="@dimen/dim_16_dp"
+                        android:layout_below="@+id/bcSummary">
+
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="S"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="M"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="T"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="W"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="TH"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="F"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:text="S"
+                                android:textSize="@dimen/dim_11_sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/bahij_janna_bold"/>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dim_60_dp"
+                        android:layout_below="@+id/llWeekDays"
+                        android:layout_weight="1.5"
+
+                        android:paddingTop="@dimen/dim_7_dp">
+                        <View
+                            android:id="@+id/viewUnderLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dim_1_dp"
+                            android:layout_alignParentTop="true"
+                            android:background="@color/color_gainsboro" />
+
+                        <View
+                            android:layout_width="@dimen/dim_1_dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/viewHorizontalSeparator"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/dim_15_dp"
+                            android:layout_marginStart="@dimen/dim_27_dp"
+                            android:layout_marginEnd="@dimen/dim_27_dp"
+                            android:background="@color/color_gainsboro" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/viewHorizontalSeparator">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bahij_janna_bold"
+                                android:text="@string/total_late_hourse"
+                                android:textAllCaps="true"
+                                android:includeFontPadding="false"
+                                android:textSize="@dimen/dim_12_sp"
+                                android:textColor="@color/color_rich_black"/>
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/dim_12_sp"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/color_dark_gray"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@+id/viewHorizontalSeparator">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bahij_janna_bold"
+                                android:text="@string/total_absent_daysse"
+                                android:includeFontPadding="false"
+                                android:textAllCaps="true"
+                                android:textSize="@dimen/dim_12_sp"
+                                android:textColor="@color/color_rich_black" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/dim_12_sp"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/color_dark_gray" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvVehicles"
+                tools:listitem="@layout/item_history"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/cvSummary"
+                android:background="@color/color_white"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:paddingTop="@dimen/dim_5_dp"
+                app:history="@{viewmodel.attendanceHistory}"/>
+
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="@dimen/dim_127_dp"
+                android:layout_height="@dimen/dim_127_dp"
+                app:lottie_rawRes="@raw/rotating_balls"
+                app:lottie_loop="true"
+                app:lottie_autoPlay="true"
+                android:elevation="@dimen/dim_8_dp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPunchesOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_taqnia_colors"
+        app:cardElevation="@dimen/dim_5_dp"
+        android:layout_gravity="bottom|center_horizontal"
+        app:cardBackgroundColor="@android:color/transparent">
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/elPunchOptions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_250_dp"
+            app:el_duration="800"
+            app:el_expanded="true"
+            app:el_parallax="0.5">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/bg_taqnia"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dim_100_dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/llCheckIn"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewmodel.addNewPunch(viewmodel.CHECK_IN)}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dim_30_dp"
+                        android:layout_height="@dimen/dim_30_dp"
+                        android:layout_marginEnd="@dimen/dim_7_dp"
+                        android:background="@drawable/shape_circle_yellow_color"
+                        android:padding="@dimen/dim_7_dp"
+                        android:src="@drawable/ic_down_arrow" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:text="@string/check_in"
+                        android:textSize="@dimen/dim_15_sp"
+                        android:textColor="@color/color_white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/llCheckOut"
+                    android:layout_marginTop="@dimen/dim_10_dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> viewmodel.addNewPunch(viewmodel.CHECK_OUT)}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dim_30_dp"
+                        android:layout_height="@dimen/dim_30_dp"
+                        android:layout_marginEnd="@dimen/dim_7_dp"
+                        android:background="@drawable/shape_circle_yellow_color"
+                        android:padding="@dimen/dim_7_dp"
+                        android:src="@drawable/ic_arrow_up" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:textSize="@dimen/dim_15_sp"
+                        android:text="@string/check_out"
+                        android:textColor="@color/color_white" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="16dp"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        app:maxImageSize="@dimen/dim_36_dp"
+        app:tint="@color/color_white"
+        android:backgroundTint="@color/fire_bush"
+        android:background="@color/fire_bush"
+        android:onClick="@{() -> viewmodel.togglePunchOptionsView()}"
+        app:srcCompat="@drawable/ic_identification"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

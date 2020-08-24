@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="punch"
+            type="com.example.taqniaattendance.data.model.history.Punch" />
+    </data>
+
+        <RelativeLayout android:id="@+id/llRootView"
+            android:background="@color/color_white"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_75_dp"
+            android:orientation="vertical">
+
+
+            <View
+                android:id="@+id/viewVertical"
+                android:layout_width="@dimen/dim_4_dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dim_35_dp"
+                android:background="@color/carnation" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_20_dp"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPunchTypeIcon"
+                    android:layout_width="@dimen/dim_40_dp"
+                    android:layout_height="@dimen/dim_40_dp"
+                    android:background="@drawable/shape_circle_carnation"
+                    android:padding="@dimen/dim_12_dp"
+                    android:layout_marginStart="@dimen/dim_17_dp"
+                    app:imageSrc="@{punch.punchTypeIcon}"
+                    android:layout_centerVertical="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/ivPunchTypeIcon"
+                    android:layout_marginStart="@dimen/dim_22_dp"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvPunchState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_rich_black"
+                        android:singleLine="true"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/bahij_janna_bold"
+                        android:textSize="@dimen/dim_16_sp"
+                        android:text="@{punch.status ?? @string/unknown}" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvPunchType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/masala"
+                        android:singleLine="true"
+                        android:textSize="@dimen/dim_12_sp"
+                        android:includeFontPadding="false"
+                        android:text='@{punch.punch ?? @string/unknown}' />
+                </LinearLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/carnation"
+                    android:fontFamily="@font/bahij_janna_bold"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/dim_14_sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dim_15_dp"
+                    android:text="@{punch.time ?? @string/unknown}" />
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+</layout>

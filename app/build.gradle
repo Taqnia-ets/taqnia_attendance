@@ -1,0 +1,115 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.example.taqniaattendance"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    configurations.all() {
+        resolutionStrategy.force "org.antlr:antlr4-runtime:4.5.3"
+        resolutionStrategy.force "org.antlr:antlr4-tool:4.5.3"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    //Retrofit
+    def retrofit_version = "2.4.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    def room_version = "2.2.4"
+    def room_compiler_version = "2.2.0-beta01"
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-compiler:$room_compiler_version"
+    implementation "androidx.room:room-ktx:$room_version" // Also includes room_coroutines
+
+    // Kotlin coroutine dependencies
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
+
+    // PhoneLib
+    implementation 'io.michaelrocks:libphonenumber-android:8.10.1'
+
+    //Timber
+    def timber_version = "4.7.1"
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    def fragmentKtxVersion = '1.2.5'
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+
+    implementation 'androidx.biometric:biometric:1.0.1'
+
+    // GMS
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //Lottie
+    def lottieVersion = "3.4.1"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //For expanded and Collapsed Viewa
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
+    //Google location fused.......
+    def fusedLocation = "17.0.0"
+    implementation "com.google.android.gms:play-services-location:$fusedLocation"
+    implementation "com.google.android.gms:play-services-maps:$fusedLocation"
+
+    //Charts
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    // Charts
+    implementation 'com.diogobernardino:williamchart:3.7.1'
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}

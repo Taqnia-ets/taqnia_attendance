@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_taqnia"
+    tools:context=".ui.login.LoginActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="@dimen/dim_150_dp"
+        android:layout_height="@dimen/dim_100_dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dim_50_dp"
+        android:src="@drawable/header_tqnia_white"/>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvLoginInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivHeader"
+        android:layout_marginTop="@dimen/dim_50_dp"
+        app:cardCornerRadius="@dimen/dim_30_dp"
+        android:layout_marginStart="@dimen/dim_55_dp"
+        app:cardElevation="@dimen/dim_4_dp"
+        android:backgroundTint="#fbc4d7"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dim_5_dp"
+            android:paddingTop="@dimen/dim_5_dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutAppearance"
+            android:layout_marginStart="@dimen/dim_15_dp"
+            android:layout_marginEnd="@dimen/dim_15_dp"
+            android:drawableStart="@drawable/ic_user_white_bg"
+            android:drawablePadding="@dimen/dim_15_dp"
+            android:hint="@string/prompt_id"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true" />
+
+            <View
+                android:id="@+id/viewTabLayoutBottom"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dim_75_dp"
+                android:layout_height="@dimen/dim_0.5_dp"
+                android:background="@color/color_dark_gray" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextInputLayoutAppearance"
+            android:layout_marginStart="@dimen/dim_15_dp"
+            android:layout_marginEnd="@dimen/dim_15_dp"
+            android:drawablePadding="@dimen/dim_15_dp"
+            android:drawableStart="@drawable/ic_password_white_bg"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true" />
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cornerRadius="@dimen/dim_10_dp"
+        android:layout_below="@+id/cvLoginInfo"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/dim_35_dp"
+        android:layout_marginBottom="64dp"
+        android:paddingEnd="@dimen/dim_25_dp"
+        android:paddingStart="@dimen/dim_25_dp"
+        android:textColor="@color/color_rich_black"
+        android:enabled="false"
+        android:text="@string/action_login" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="@dimen/dim_127_dp"
+        android:layout_height="@dimen/dim_127_dp"
+        app:lottie_rawRes="@raw/rotating_balls"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:elevation="@dimen/dim_8_dp"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

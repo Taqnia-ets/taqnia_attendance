@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#A43862</color>
+    <color name="colorAccent">#03DAC5</color>
+
+        <!--Locator App Color -->
+        <color name="main_bg">#F9F9F9</color>
+        <color name="french_gray">#CFCFD0</color>
+        <color name="masala">#4A4644</color>
+        <color name="dark_green">#146739</color>
+        <color name="green">#209344</color>
+        <color name="green_light">#39B549</color>
+        <color name="dove_ray">#616161</color>
+        <color name="silver">#C7C7C7</color>
+        <color name="red">#ffff0000</color>
+        <color name="cold_purple">#A0A9D9</color>
+        <color name="color_dark_gray">#a2a2a2</color>
+        <color name="terracotta">#E2624B</color>
+        <color name="carnation">#f45865</color>
+        <color name="can_can">#D396A6</color>
+        <color name="port_gore">#242750</color>
+        <color name="fire_bush">#E5A623</color>
+        <color name="raw_sienna">#d16e42</color>
+
+
+    <!-- General Colors -->
+        <color name="color_light_slate_gray">#7f8b97</color>
+        <color name="color_teal_green">#ff075f5a</color>
+        <color name="color_pastel_blue">#aed1d0</color>
+        <color name="color_bottle_green">#005A53</color>
+        <color name="color_rich_black">#FF033733</color>
+        <color name="black">#000000</color>
+        <color name="color_gainsboro">#FFD5D8DE</color>
+        <color name="color_pine_green">#09716b</color>
+        <color name="color_bondi_blue">#00a0a6</color>
+        <color name="color_davy_grey">#59595c</color>
+        <color name="color_cardinal">#cf2539</color>
+        <color name="color_munsell">#aFD5D8DE</color>
+        <color name="color_munsell_green">#e9f1ef</color>
+        <color name="color_white">#ffffff</color>
+        <color name="color_white_light_green">#EAF0F0</color>
+        <color name="color_green">#17a804</color>
+
+        <color name="color_marcon">#790000</color>
+        <color name="color_napier_green">#289500</color>
+
+
+
+        <color name="color_dark_coral">#ca4b38</color>
+        <color name="color_cadet_blue">#5a9b9a</color>
+        <color name="color_verdigris">#33a6bc</color>
+
+        <color name="color_dark_turquoise">#00b2cf</color>
+        <color name="color_mint_cream">#F5FAF9</color>
+        <color name="color_midnight_green">#005853</color>
+        <color name="color_pearl_aqua">#80cfd2</color>
+        <color name="color_cambridge_blue">#99c2c1</color>
+        <color name="color_silver">#FFBCBDBD</color>
+
+        <color name="colorBackground">#F8F8F8</color>
+        <color name="colorNavAccentSelected">#9D0E15</color>
+        <color name="colorNavAccentUnselected">#727272</color>
+        <color name="color_mc_default_img_bg">#E9F3F3</color>
+        <color name="color_msu_green">#18514e</color>
+        <color name="color_charcoal">#FF39405C</color>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/dim_30_dp"
+    app:cardBackgroundColor="@color/color_white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dim_250_dp"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dim_25_dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bahij_janna_bold"
+        android:text="@string/succes"
+        android:textColor="@color/color_rich_black"
+        android:textSize="@dimen/dim_21_sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textAllCaps="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="@dimen/dim_100_dp"
+        android:layout_height="@dimen/dim_100_dp"
+        android:elevation="@dimen/dim_8_dp"
+        android:layout_marginTop="@dimen/dim_45_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/success" />
+
+</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

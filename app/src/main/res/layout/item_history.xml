@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="attendance"
+            type="com.example.taqniaattendance.data.model.history.Attendance" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.taqniaattendance.ui.searching.VehiclesViewModel" />
+    </data>
+
+        <RelativeLayout android:id="@+id/llRootView"
+            android:background="@color/color_white"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvPunches"
+                tools:listitem="@layout/item_punch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llHeader"
+                android:background="@android:color/transparent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:punches="@{attendance.punches}"/>
+
+            <View
+                android:id="@+id/viewUnderLine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_0.5_dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_gainsboro" />
+
+            <LinearLayout
+                android:layout_width="@dimen/dim_140_dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_rectangle_cornered_right"
+                android:id="@+id/llHeader"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/dim_mince_15_dp"
+                android:paddingStart="@dimen/dim_30_dp"
+                android:paddingEnd="@dimen/dim_10_dp"
+                android:paddingBottom="@dimen/dim_2_dp"
+                android:paddingTop="@dimen/dim_2_dp"
+                android:layout_marginTop="@dimen/dim_6_dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_white"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:fontFamily="@font/bahij_janna_bold"
+                    android:textSize="@dimen/dim_14_sp"
+                    android:text="@{attendance.getFormattedDate()}" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvAttendanceState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim_mince_4_dp"
+                    android:textColor="@color/color_white"
+                    android:fontFamily="@font/bahij_janna_bold"
+                    android:singleLine="true"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/dim_10_sp"
+                    app:textAllCaps="true"
+                    android:text="@{attendance.attendanceStatus}" />
+            </LinearLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
+</layout>

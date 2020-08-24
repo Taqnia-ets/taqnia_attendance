@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:autoMirrored="true"
+    android:dither="true"
+    android:shape="rectangle">
+    <stroke
+        android:width="1dp"
+        android:color="@color/carnation" />
+    <solid android:color="@color/carnation" />
+    <corners
+        android:bottomRightRadius="@dimen/dim_20_dp"
+        android:bottomLeftRadius="@dimen/dim_20_dp"
+        android:topLeftRadius="@dimen/dim_20_dp"
+        android:topRightRadius="@dimen/dim_20_dp" />
+</shape>
