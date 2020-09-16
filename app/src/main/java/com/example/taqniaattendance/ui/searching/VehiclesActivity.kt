@@ -37,6 +37,7 @@ class VehiclesActivity : BaseActivity() {
     private val viewModel by viewModels<VehiclesViewModel> {
         AppViewModelFactory(ServiceLocator.provideRepository())
     }
+    private val historyAdapter by lazy { VehiclesAdapter(viewModel) }
 
 
     private lateinit var viewDataBinding: ActivityHomeBinding
@@ -90,9 +91,20 @@ class VehiclesActivity : BaseActivity() {
             mDialogSuccess.show()
         })
 
+//        lifecycleScope.launch {
+//            viewModel.attendanceHistory.collect {
+//                historyAdapter.submitData(it)
+//            }
+//        }
+
         lastWeekSummaryStatistics.observe(this@VehiclesActivity, Observer {
             LogsUtil.printDebugLog("lastWeekSummaryStatistics", it.toString())
             it?.let { it1 -> setupSummaryChart(it1) }
+        })
+
+        expectedLeaveTime.observe(this@VehiclesActivity, Observer {
+            if (!it.isNullOrBlank())
+                llExpectedLeaveTime.show()
         })
 
         container.setupSnackbar(this@VehiclesActivity, viewModel.snackBarText, Snackbar.LENGTH_SHORT)
@@ -237,7 +249,7 @@ class VehiclesActivity : BaseActivity() {
 
 
     private fun setUpVehiclesAdapter() = with(viewDataBinding.rcvVehicles) {
-        adapter = VehiclesAdapter(viewModel)
+        adapter = historyAdapter
     }
 
 

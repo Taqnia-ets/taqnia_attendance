@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 data class HistoryResponse(@SerializedName("status")
                               var status: String? = null,
                               @SerializedName("result")
-                              var result: Map<String, Attendance>? = null,
+                              var result: HistoryResult? = null,
                               @SerializedName("message")
                                var message: String? = null) : Parcelable {
     fun isSuccessful() : Boolean = !(status.equals(Constants.ErrorConstants.ERROR, true))

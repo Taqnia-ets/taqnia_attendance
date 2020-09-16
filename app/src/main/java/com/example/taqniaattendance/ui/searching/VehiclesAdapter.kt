@@ -2,6 +2,7 @@ package com.example.taqniaattendance.ui.searching
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.*
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.databinding.ItemHistoryBinding

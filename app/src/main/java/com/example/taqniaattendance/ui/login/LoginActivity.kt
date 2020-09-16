@@ -11,23 +11,25 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.taqniaattendance.R
 import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.ui.BaseActivity
 import com.example.taqniaattendance.ui.searching.VehiclesActivity
-import com.example.taqniaattendance.util.setupSnackbar
+import com.example.taqniaattendance.util.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.concurrent.Executor
 
 class LoginActivity : BaseActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
@@ -37,9 +39,7 @@ class LoginActivity : BaseActivity() {
 
         setContentView(R.layout.activity_login)
 
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
+
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -60,6 +60,11 @@ class LoginActivity : BaseActivity() {
 //            //Complete and destroy login activity once successful
 //            finish()
 
+        })
+
+        loginViewModel.isOTPRequired.observe(this@LoginActivity, Observer {
+            animationView.visibility = View.GONE
+            llPassword.visibility = View.VISIBLE
         })
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -95,15 +100,13 @@ class LoginActivity : BaseActivity() {
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(assembleLoginData())
+                    EditorInfo.IME_ACTION_DONE -> login(assembleLoginData())
                 }
                 false
             }
 
             login.setOnClickListener {
-                animationView.visibility = View.VISIBLE
-                loginViewModel.login(assembleLoginData())
+                login(assembleLoginData())
             }
         }
 
@@ -158,7 +161,20 @@ class LoginActivity : BaseActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+
+    fun login(loginRequest: LoginRequest) {
+        val OTPIsSent = llPassword.isVisible
+        if (OTPIsSent && (loginRequest.password.isNullOrBlank() || loginRequest.password.length < 3))
+            loginViewModel.snackBarText.postValue(Event(getString(R.string.invalid_otp)))
+        else {
+            animationView.visibility = View.VISIBLE
+            loginViewModel.login(loginRequest)
+        }
+
+    }
 }
+
+
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.

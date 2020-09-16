@@ -3,6 +3,7 @@ package com.example.taqniaattendance
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.taqniaattendance.data.source.Repository
+import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
 import com.example.taqniaattendance.ui.info.InfoViewModel
 import com.example.taqniaattendance.ui.searching.VehiclesViewModel
 
@@ -14,7 +15,7 @@ class AppViewModelFactory(
             with (modelClass) {
                 when {
                     isAssignableFrom(VehiclesViewModel::class.java) ->
-                        VehiclesViewModel(tasksRepository)
+                        VehiclesViewModel(tasksRepository, HistoryRemoteDataSource)
 
                     isAssignableFrom(InfoViewModel::class.java) ->
                         InfoViewModel(tasksRepository)

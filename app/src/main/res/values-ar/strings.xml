@@ -13,11 +13,21 @@
     <!-- General Strings -->
     <string name="unknown">"Unknown"</string>
 
+    <!-- Home -->
+    <string name="home">الئيسية</string>
+    <string name="check_in">دخول</string>
+    <string name="check_out">خروج</string>
+    <string name="title_enabel_gps">تفعيل الموقع الجغرافي</string>
+    <string name="msg_enabel_gps">Your Location Settings is set to \'Off\' Please Enable Location to use this app</string>
+    <string name="btn_location_setttings">إعدادات الموقع</string>
+    <string name="fake_location_not_allowed">Your Fake Location is detected</string>
+    <string name="overall_performance">Overall Performance</string>
+    <string name="total_late_hourse">إجمالي ساعات التأخير</string>
+    <string name="total_absent_daysse">إجمالي أيام الغياب</string>
+    <string name="title_expected_leave_time">وقت المغادرة المتوقع</string>
+
     <!-- Remote data source -->
     <string name="error_message_general">حدث خطأ ما، يرجى المحاولة مجددا</string>
     <string name="error_message_network">تأكد من الإتصال بالإنترنت</string>
     <string name="error_message_sign_in">يجب تسجيل الدخول مجددا</string>
-
-    <!-- Home -->
-    <string name="home">الرئيسية</string>
 </resources>

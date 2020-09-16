@@ -6,6 +6,7 @@ import com.example.taqniaattendance.util.TimeUtils.IsoDateTimeFormatter
 import com.example.taqniaattendance.util.TimeUtils.MMMDDYYYYFormatter
 import com.example.taqniaattendance.util.TimeUtils.formalDateFormatter
 import com.example.taqniaattendance.util.TimeUtils.userDateWithoutTime
+import com.example.taqniaattendance.util.TimeUtils.TaqniaDateTimeFormatter
 import java.text.SimpleDateFormat
 import java.time.DateTimeException
 import java.time.format.DateTimeParseException
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit
 object TimeUtils {
 
     private const val ISO_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    private const val TAQNIA_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
     private const val GMT_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
     private const val USER_DATE_FORMAT = "MM/dd/yyyy hh:mm aa"
     private const val USER_DATE_WITHOUT_TIME_FORMAT = "dd/MM/yyyy"
@@ -22,6 +24,10 @@ object TimeUtils {
 
     internal val IsoDateTimeFormatter by lazy {
         SimpleDateFormat(ISO_DATE_TIME_FORMAT, Locale.ENGLISH)
+    }
+
+    internal val TaqniaDateTimeFormatter by lazy {
+        SimpleDateFormat(TAQNIA_DATE_TIME_FORMAT, Locale.ENGLISH)
     }
 
     internal val GMTDateTimeFormatter by lazy {
@@ -87,6 +93,20 @@ fun String?.toDateFormat(): String = try {
     formalDateFormatter.format(dateIso)
 } catch (e: Exception){
     ""
+}
+
+fun String?.toDateObject(): Date? = try {
+    IsoDateTimeFormatter.parse(this)
+} catch (e: Exception){
+    Log.getStackTraceString(e)
+    null
+}
+
+fun String?.fromTaqniaFormatToDateObject(): Date? = try {
+    TaqniaDateTimeFormatter.parse(this)
+} catch (e: Exception){
+    Log.getStackTraceString(e)
+    null
 }
 
 fun String?.fromGMTtoDateFormat(): String = try {

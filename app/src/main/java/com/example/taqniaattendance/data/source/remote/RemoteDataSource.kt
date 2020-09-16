@@ -99,9 +99,8 @@ object RemoteDataSource : DataSource {
                             val user = User(id = loginRequest.userID, password = loginRequest.password)
                             PrefsHelper.saveUser(user)
                             saveToken(this)
-                            callback.onLogin(response.body())
                         }
-
+                        callback.onLogin(response.body())
                     }
                     else callback.onFailure(getError(response.code(), response.body()?.message))
                 }
@@ -137,7 +136,7 @@ object RemoteDataSource : DataSource {
                         password = user.password
                         PrefsHelper.saveUser(this)
                     }
-                }
+                } else getError(response.code(), response.body()?.message)
             }
             override fun onFailure(call: Call<User?>, t: Throwable) {}
         })

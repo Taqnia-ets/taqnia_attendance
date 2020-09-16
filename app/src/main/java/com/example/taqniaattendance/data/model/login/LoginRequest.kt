@@ -13,7 +13,7 @@ data class LoginRequest(
     @Expose
     val userID: String? = null,
 
-    @SerializedName("password")
+    @SerializedName("otp")
     @Expose
     val password: String? = null,
 

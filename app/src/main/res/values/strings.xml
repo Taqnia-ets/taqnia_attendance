@@ -9,6 +9,7 @@
     <string name="welcome">"Welcome "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_otp">Please enter valid OTP</string>
     <string name="login_failed">"Login failed"</string>
 
     <!-- General Strings -->
@@ -30,6 +31,7 @@
     <string name="overall_performance">Overall Performance</string>
     <string name="total_late_hourse">Total late hours</string>
     <string name="total_absent_daysse">Total absent days</string>
+    <string name="title_expected_leave_time">Expected leave time:</string>
 
     <!-- Success Dialog -->
     <string name="succes">Success</string>

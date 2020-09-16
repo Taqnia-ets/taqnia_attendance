@@ -1,9 +1,15 @@
 package com.example.taqniaattendance.ui.searching
 
+import android.text.format.DateUtils
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.history.HistoryResponse
@@ -12,8 +18,8 @@ import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.data.source.Repository
-import com.example.taqniaattendance.util.Event
-import com.example.taqniaattendance.util.LogsUtil
+import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
+import com.example.taqniaattendance.util.*
 import com.github.mikephil.charting.data.BarEntry
 import com.kacst.hsr.data.model.error.AppError
 import timber.log.Timber
@@ -22,13 +28,16 @@ import java.text.DateFormat
 import java.util.*
 
 class VehiclesViewModel(
-    private val repository: Repository
+    private val repository: Repository,
+    private val historyDataSource : HistoryRemoteDataSource
 ) : ViewModel() {
 
     val attendanceHistory = MutableLiveData<List<Attendance?>?>()
     val showInfo = MutableLiveData<Boolean>(false)
     val showPunchOptions = MutableLiveData<Boolean>(false)
     val userName = MutableLiveData<String?>()
+    val workingHours = MutableLiveData<String?>()
+    val expectedLeaveTime = MutableLiveData<String?>()
     val punch = MutableLiveData<String>()
     val snackBarText: MutableLiveData<Event<String?>> = MutableLiveData<Event<String?>>()
     val newPunchAdded = MutableLiveData<Unit>()
@@ -37,9 +46,11 @@ class VehiclesViewModel(
     val weekSummaryFirstDate = MutableLiveData<String?>()
     val weekSummaryLastDate = MutableLiveData<String?>()
     val openHistoryItem = MutableLiveData<Unit>()
-    val isEmptyList: LiveData<Boolean> = map(attendanceHistory) {
-        it?.isNullOrEmpty()
-    }
+
+
+//    val listData = Pager(PagingConfig(pageSize = 31)) {
+//        historyDataSource
+//    }.flow.cachedIn(viewModelScope)
 
     init {
 //        attendanceHistory.value = getHistory()
@@ -50,13 +61,16 @@ class VehiclesViewModel(
     }
 
     fun getHistory() {
-        val historyRequest = HistoryRequest("2020", "8")
+        val historyRequest = HistoryRequest("2020", "9")
         repository.getHistory(historyRequest, object: DataSource.HistoryCallback {
             override fun onGetHistory(historyResponse: HistoryResponse?) {
-                val historyAsList = historyResponse?.result?.values?.toList()?.reversed()
-                val x =historyAsList?.onEach { if (it.punches.isNullOrEmpty())  it.punches = listOf(Punch())}
-                attendanceHistory.value = historyAsList
-                historyAsList?.let { setPreviousWeekSummary(it) }
+                val historyAsList = historyResponse?.result?.attendances?.values?.toList()?.reversed()
+//                val x =historyAsList?.onEach { if (it.punches.isNullOrEmpty())  it.punches = listOf(Punch())}
+                historyAsList?.let {
+                    attendanceHistory.value = it
+                    setPreviousWeekSummary(it)
+                    expectedLeaveTime.value = getExpectedLeaveTime(it.first(), workingHours.value)
+                }
             }
 
             override fun onFailure(error: AppError) {
@@ -152,6 +166,7 @@ class VehiclesViewModel(
             override fun onGetUser(user: User?) {
                 user?.let {
                     userName.value = it.name
+                    workingHours.value = it.workingHours
                     repository.refreshUserInfo(it)
                 }
             }
@@ -161,12 +176,6 @@ class VehiclesViewModel(
     }
 
     private fun setPreviousWeekSummary(attendances: List<Attendance?>) {
-//        val calender = Calendar.getInstance()
-//        calender.firstDayOfWeek = Calendar.MONDAY
-//        calender.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//        calender.add(Calendar.DATE, -7)
-//        print(calender.timeInMillis.toDateFormat())
-//        LogsUtil.printErrorLog("first Date", calender.timeInMillis.toDateFormat())
 
         val calendar = Calendar.getInstance()
         val index = attendances.indexOfFirst {
@@ -199,7 +208,25 @@ class VehiclesViewModel(
         }
     }
 
-    private fun String?.getDisplayWorkingHours() : Float =
+    private fun getExpectedLeaveTime(attendances: Attendance, workingHours: String?) : String? {
+        val firstAttendanceDate = attendances.punches?.first()?.timestampObject.fromTaqniaFormatToDateObject()
+
+        if (attendances.getDateAsObject()?.time?.let { DateUtils.isToday(it) } == false || workingHours == null || firstAttendanceDate == null)
+            return null
+
+
+            val leaveTimeCalender = Calendar.getInstance().apply {
+                time = firstAttendanceDate
+                add(Calendar.HOUR_OF_DAY,
+                    workingHours.substringBefore(":","0")?.trim()?.toInt() ?: 0)
+                add(Calendar.MINUTE,
+                    workingHours.substringAfter(":","0")?.substringBefore(":","0")?.trim()?.toInt() ?: 0)
+            }
+
+            return DateFormat.getTimeInstance().format(Date(leaveTimeCalender.timeInMillis))
+    }
+
+        private fun String?.getDisplayWorkingHours() : Float =
         try {
             LogsUtil.printErrorLog("all last week","${this?.substringBefore(":","0")}.${this?.substringAfter(":","0")?.substringBefore(":","0")}f".toFloat().toString())
             "${this?.substringBefore(":","0")?.trim()}.${this?.substringAfter(":","0")?.substringBefore(":","0")?.trim()}f".toFloat()

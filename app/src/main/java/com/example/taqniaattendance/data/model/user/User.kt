@@ -13,9 +13,9 @@ data class User(
     @SerializedName("password")
     @Expose
     var password: String? = null,
-//    @SerializedName("token")
-//    @Expose
-//    val token: String,
+    @SerializedName("workingHours")
+    @Expose
+    val workingHours: String? = null,
     @Expose
     @SerializedName("check_in")
     val checkIn: Boolean? = null,

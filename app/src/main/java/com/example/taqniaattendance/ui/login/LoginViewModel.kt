@@ -17,6 +17,7 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
 
 
     val isLoggedIn = MutableLiveData<Boolean>()
+    val isOTPRequired = MutableLiveData<Boolean>()
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -42,7 +43,12 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
     fun login(loginRequest: LoginRequest) {
         repository.login(loginRequest, object : DataSource.LoginCallback{
             override fun onLogin(loginResponse: LoginResponse?) {
-                isLoggedIn.postValue(true)
+                if (loginResponse?.response_type?.equals(OTP, ignoreCase = true) == true) {
+                    isOTPRequired.value = isOTPRequired.value?.not()
+                    snackBarText.postValue(Event(loginResponse.message))
+                }
+                else
+                    isLoggedIn.postValue(true)
             }
 
             override fun onFailure(error: AppError) {
@@ -55,9 +61,11 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
             _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
-        } else if (!isPasswordValid(password)) {
-            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
-        } else {
+        }
+//        else if (!isPasswordValid(password)) {
+//            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
+//        }
+        else {
             _loginForm.value = LoginFormState(isDataValid = true)
         }
     }
@@ -75,4 +83,6 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
+
+    val OTP = "otp"
 }

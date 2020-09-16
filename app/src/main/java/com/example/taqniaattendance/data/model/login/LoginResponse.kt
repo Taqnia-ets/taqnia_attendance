@@ -18,6 +18,9 @@ data class LoginResponse(
     val token: String,
     @SerializedName("message")
     @Expose
-    val message: String) : Parcelable {
+    val message: String,
+    @SerializedName("response_type")
+    @Expose
+    val response_type: String?) : Parcelable {
     fun isSuccessful() : Boolean = !(status.equals(Constants.ErrorConstants.ERROR, true))
 }
