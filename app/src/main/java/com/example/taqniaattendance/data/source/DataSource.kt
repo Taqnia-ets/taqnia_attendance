@@ -28,7 +28,10 @@ interface DataSource {
     interface UserCallback : BaseCallback {
         fun onGetUser(user: User?)
     }
-    fun refreshUserInfo(user: User)
+    fun refreshUserInfo(
+        user: User,
+        callback: UserCallback
+    )
     fun getSavedUser(callback: UserCallback)
 
     interface PunchCallback : BaseCallback {

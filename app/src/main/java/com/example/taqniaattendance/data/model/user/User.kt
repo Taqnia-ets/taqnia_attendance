@@ -13,7 +13,7 @@ data class User(
     @SerializedName("password")
     @Expose
     var password: String? = null,
-    @SerializedName("workingHours")
+    @SerializedName("department_working_hours")
     @Expose
     val workingHours: String? = null,
     @Expose

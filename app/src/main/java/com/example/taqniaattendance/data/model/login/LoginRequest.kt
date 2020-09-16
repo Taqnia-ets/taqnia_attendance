@@ -27,4 +27,4 @@ data class LoginRequest(
 
     @SerializedName("mobile_notification_type")
     @Expose
-    val notificationType: String? = "xxxxxxx") : Parcelable
+    val notificationType: String? = null) : Parcelable

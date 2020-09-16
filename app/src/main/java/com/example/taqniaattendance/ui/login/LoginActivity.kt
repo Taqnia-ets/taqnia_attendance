@@ -22,8 +22,10 @@ import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.ui.BaseActivity
 import com.example.taqniaattendance.ui.searching.VehiclesActivity
 import com.example.taqniaattendance.util.*
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.concurrent.Executor
 
@@ -33,12 +35,13 @@ class LoginActivity : BaseActivity() {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var notificationToken: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login)
-
+        refreshNotificationToken()
 
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
@@ -156,7 +159,8 @@ class LoginActivity : BaseActivity() {
     private fun assembleLoginData(): LoginRequest =
         LoginRequest(
             username.text.toString(),
-            password.text.toString())
+            password.text.toString(),
+            notificationType = notificationToken)
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
@@ -171,6 +175,22 @@ class LoginActivity : BaseActivity() {
             loginViewModel.login(loginRequest)
         }
 
+    }
+
+    private fun refreshNotificationToken() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    LogsUtil.printErrorLog("NotificationToken", "getInstanceId failed" + task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+                token?.let { notificationToken = it }
+
+                // Log and toast
+                LogsUtil.printErrorLog("NotificationToken", token)
+            })
     }
 }
 

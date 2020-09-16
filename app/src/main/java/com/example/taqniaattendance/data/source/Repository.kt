@@ -24,8 +24,11 @@ class Repository(
         remoteDataSource.getHistory(historyRequest, callback)
     }
 
-    override fun refreshUserInfo(user: User) {
-        remoteDataSource.refreshUserInfo(user)
+    override fun refreshUserInfo(
+        user: User,
+        callback: DataSource.UserCallback
+    ) {
+        remoteDataSource.refreshUserInfo(user, callback)
     }
 
     override fun punch(punch: NewPunch, callback: DataSource.PunchCallback) {

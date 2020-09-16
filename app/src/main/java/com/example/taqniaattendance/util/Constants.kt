@@ -56,6 +56,8 @@ object Constants {
         const val REJECT_REQUEST = "reject"
         const val FROM_REQUEST_LIST_SCREEN = "FROM_REQUEST_LIST_SCREEN"
 
+        const val KEY_GENERAL_NOTIFICATION_CHANNEL= "key_general_notification_channel"
+
     }
 
     object ErrorConstants {

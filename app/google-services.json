@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "437101861222",
+    "firebase_url": "https://taqnia-attendance.firebaseio.com",
+    "project_id": "taqnia-attendance",
+    "storage_bucket": "taqnia-attendance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437101861222:android:3f2b44c1f49308dafe90a7",
+        "android_client_info": {
+          "package_name": "com.example.taqniaattendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437101861222-eko997h4md79bj4j9c98n98dqlv59898.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOgbvYwdbHa9lBUUH-h9fDvcTMqsn9SNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437101861222-eko997h4md79bj4j9c98n98dqlv59898.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

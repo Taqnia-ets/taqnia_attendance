@@ -12,8 +12,8 @@ data class NewPunch(
     val punchType: String?,
     @Expose
     @SerializedName("latitude")
-    val latitude: String,
+    val latitude: String?,
     @Expose
     @SerializedName("longitude")
-    val longitude: String
+    val longitude: String?
 ) : Parcelable

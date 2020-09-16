@@ -99,7 +99,10 @@ class LocalDataSource(
     override fun getHistory(historyRequest: HistoryRequest, callback: DataSource.HistoryCallback) =
         Unit
 
-    override fun refreshUserInfo(user: User) = Unit
+    override fun refreshUserInfo(
+        user: User,
+        callback: DataSource.UserCallback
+    ) = Unit
 
     override fun punch(punch: NewPunch, callback: DataSource.PunchCallback)  = Unit
 

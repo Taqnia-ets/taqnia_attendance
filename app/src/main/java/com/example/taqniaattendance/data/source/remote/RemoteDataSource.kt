@@ -19,10 +19,8 @@ import com.example.taqniaattendance.util.Constants.GeneralKeys
 import com.example.taqniaattendance.util.LogsUtil
 import com.example.taqniaattendance.util.NetworkUtil
 import com.example.taqniaattendance.util.PrefsHelper
-import com.example.taqniaattendance.util.PrefsHelper.deleteUserData
 import com.example.taqniaattendance.util.PrefsHelper.getToken
 import com.example.taqniaattendance.util.PrefsHelper.saveToken
-import com.example.taqniaattendance.util.PrefsHelper.saveUser
 import com.kacst.hsr.data.model.error.AppError
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -127,7 +125,10 @@ object RemoteDataSource : DataSource {
         }
     }
 
-    override fun refreshUserInfo(user: User) {
+    override fun refreshUserInfo(
+        user: User,
+        callback: DataSource.UserCallback
+    ) {
         mEndpoints.getUser().enqueue(object : Callback<User?> {
             override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 if (response.isSuccessful && response.body()?.isSuccessful() == true) {
@@ -135,10 +136,12 @@ object RemoteDataSource : DataSource {
                     refreshedUser?.apply {
                         password = user.password
                         PrefsHelper.saveUser(this)
+                        callback.onGetUser(this)
                     }
-                } else getError(response.code(), response.body()?.message)
+                } else callback.onFailure(getError(response.code(), response.body()?.message))
             }
-            override fun onFailure(call: Call<User?>, t: Throwable) {}
+            override fun onFailure(call: Call<User?>, t: Throwable)
+            = callback.onFailure(getError(-1, t))
         })
     }
 

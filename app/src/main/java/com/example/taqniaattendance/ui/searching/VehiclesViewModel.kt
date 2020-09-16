@@ -1,15 +1,8 @@
 package com.example.taqniaattendance.ui.searching
 
 import android.text.format.DateUtils
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.history.HistoryResponse
@@ -21,6 +14,8 @@ import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
 import com.example.taqniaattendance.util.*
 import com.github.mikephil.charting.data.BarEntry
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.kacst.hsr.data.model.error.AppError
 import timber.log.Timber
 import java.lang.Exception
@@ -38,6 +33,8 @@ class VehiclesViewModel(
     val userName = MutableLiveData<String?>()
     val workingHours = MutableLiveData<String?>()
     val expectedLeaveTime = MutableLiveData<String?>()
+    val totalAbsentDays = MutableLiveData<String?>()
+    val totalLateTimes = MutableLiveData<String?>()
     val punch = MutableLiveData<String>()
     val snackBarText: MutableLiveData<Event<String?>> = MutableLiveData<Event<String?>>()
     val newPunchAdded = MutableLiveData<Unit>()
@@ -47,6 +44,20 @@ class VehiclesViewModel(
     val weekSummaryLastDate = MutableLiveData<String?>()
     val openHistoryItem = MutableLiveData<Unit>()
 
+    private fun refreshNotificationToken() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    LogsUtil.printErrorLog("NotificationToken", "getInstanceId failed" + task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+
+                // Log and toast
+                LogsUtil.printErrorLog("NotificationToken", token)
+            })
+    }
 
 //    val listData = Pager(PagingConfig(pageSize = 31)) {
 //        historyDataSource
@@ -61,9 +72,11 @@ class VehiclesViewModel(
     }
 
     fun getHistory() {
-        val historyRequest = HistoryRequest("2020", "9")
+        val historyRequest = getInitHistoryRequest()
         repository.getHistory(historyRequest, object: DataSource.HistoryCallback {
             override fun onGetHistory(historyResponse: HistoryResponse?) {
+                totalAbsentDays.value = historyResponse?.result?.absentDays
+                totalLateTimes.value = historyResponse?.result?.totalAttendLateTimeStr
                 val historyAsList = historyResponse?.result?.attendances?.values?.toList()?.reversed()
 //                val x =historyAsList?.onEach { if (it.punches.isNullOrEmpty())  it.punches = listOf(Punch())}
                 historyAsList?.let {
@@ -129,6 +142,7 @@ class VehiclesViewModel(
 //        val newPunch = NewPunch(punchType = punch.value, latitude = "24.7192101", longitude = "46.6460797")
         repository.punch(newPunch, object : DataSource.PunchCallback {
             override fun onPunchSuccess() {
+                getHistory()
                 newPunchAdded.value = Unit
                 setShowLoading(false)
                 LogsUtil.printErrorLog("onPunchSuccess", "good")
@@ -167,12 +181,31 @@ class VehiclesViewModel(
                 user?.let {
                     userName.value = it.name
                     workingHours.value = it.workingHours
-                    repository.refreshUserInfo(it)
+                    repository.refreshUserInfo(it, getUserCallback())
                 }
             }
-
             override fun onFailure(error: AppError) = Unit
         })
+    }
+
+    private fun getUserCallback() = object : DataSource.UserCallback {
+        override fun onGetUser(user: User?) {
+            user?.let {
+                //if there is no data then it sets in getSavedUser, this will helps in first time user opens the app
+                userName.value = it.name
+                workingHours.value = it.workingHours
+            }
+        }
+
+        override fun onFailure(error: AppError) {
+
+        }
+    }
+
+    private fun getInitHistoryRequest() : HistoryRequest {
+        val calendar = Calendar.getInstance()
+        val month = calendar.get(Calendar.MONTH) + 1 //we add 1, according that Calendar.MONTH start from 0
+        return HistoryRequest(calendar.get(Calendar.YEAR).toString(), month.toString())
     }
 
     private fun setPreviousWeekSummary(attendances: List<Attendance?>) {
@@ -244,6 +277,7 @@ class VehiclesViewModel(
         }
         return "$value h"
     }
+
 
 
     companion object{
