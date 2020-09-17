@@ -4,6 +4,7 @@ import com.example.taqniaattendance.data.Result
 import com.example.taqniaattendance.data.model.LoggedInUser
 import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.login.LoginRequest
+import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
 import com.kacst.hsr.data.model.error.AppError
@@ -85,6 +86,11 @@ class Repository(
     override fun initRetrofitClient()
             = remoteDataSource.initRetrofitClient()
 
+    override fun saveNotifications(notification: Notification)
+            = localDataSource.saveNotifications(notification)
+
+    override fun getNotifications(callback: DataSource.NotificationsCallback)
+            = localDataSource.getNotifications(callback)
 //    suspend fun deleteWords()
 //            = localDataSource.deleteWords()
 //

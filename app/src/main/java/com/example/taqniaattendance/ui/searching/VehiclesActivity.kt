@@ -16,6 +16,7 @@ import com.example.taqniaattendance.databinding.ActivityHomeBinding
 import com.example.taqniaattendance.ui.BaseActivity
 import com.example.taqniaattendance.ui.SuccessDialog
 import com.example.taqniaattendance.ui.info.InfoFragment
+import com.example.taqniaattendance.ui.notification.NotificationsFragment
 import com.example.taqniaattendance.util.*
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -63,6 +64,11 @@ class VehiclesActivity : BaseActivity() {
         showInfo.observe(this@VehiclesActivity, Observer { showInfo ->
             if (showInfo)
                 InfoFragment.newInstance().show(supportFragmentManager, InfoFragment().tag)
+        })
+
+        showNotifications.observe(this@VehiclesActivity, Observer { showInfo ->
+            if (showInfo)
+                NotificationsFragment.newInstance().show(supportFragmentManager, NotificationsFragment().tag)
         })
 
         showPunchOptions.observe(this@VehiclesActivity, Observer { show ->

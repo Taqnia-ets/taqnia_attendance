@@ -29,6 +29,7 @@ class VehiclesViewModel(
 
     val attendanceHistory = MutableLiveData<List<Attendance?>?>()
     val showInfo = MutableLiveData<Boolean>(false)
+    val showNotifications = MutableLiveData<Boolean>(false)
     val showPunchOptions = MutableLiveData<Boolean>(false)
     val userName = MutableLiveData<String?>()
     val workingHours = MutableLiveData<String?>()
@@ -156,6 +157,10 @@ class VehiclesViewModel(
 
     fun showUserInf(){
         showInfo.value = true
+    }
+
+    fun showNotifications() {
+        showNotifications.value = true
     }
 
     fun togglePunchOptionsView(){

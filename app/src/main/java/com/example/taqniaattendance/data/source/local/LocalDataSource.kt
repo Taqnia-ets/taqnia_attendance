@@ -2,6 +2,7 @@ package com.example.taqniaattendance.data.source.local
 
 import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.login.LoginRequest
+import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.util.PrefsHelper
@@ -56,6 +57,12 @@ class LocalDataSource(
 //            mUserDao.saveUser(UserEntity(userJson = userJson))
 //        }
     }
+
+    override fun saveNotifications(notification: Notification)
+            = prefs.saveNotification(notification)
+
+    override fun getNotifications(callback: DataSource.NotificationsCallback)
+            = callback.onGetNotifications(prefs.getNotifications())
 
     override fun getEnvironment(callback: DataSource.GetEnvironmentCallback) =
         callback.onGetEnvironment(prefs.getEnvironment())

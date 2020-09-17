@@ -10,6 +10,7 @@ import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.history.HistoryResponse
 import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.data.model.login.LoginResponse
+import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.data.source.DataSource
@@ -179,8 +180,8 @@ object RemoteDataSource : DataSource {
         when (responseCode) {
             ErrorConstants.ERROR_CODE_UNAUTHORIZED -> {
                 val error = getCustomError(ErrorConstants.ERROR_CODE_UNAUTHORIZED)
-                PrefsHelper.deleteUserData()
-                sendLocalBroadcast(GeneralKeys.KEY_FORCE_LOG_OUT, error)
+//                PrefsHelper.deleteUserData()todo
+//                sendLocalBroadcast(GeneralKeys.KEY_FORCE_LOG_OUT, error) todo
                 return error
             }
             ErrorConstants.ERROR_CODE_INTERNAL_SERVER_ERROR,
@@ -246,6 +247,10 @@ object RemoteDataSource : DataSource {
     override fun deleteUserData() = Unit
 
     override fun getEnvironment(callback: DataSource.GetEnvironmentCallback) = Unit
+
+    override fun getNotifications(callback: DataSource.NotificationsCallback)  = Unit
+
+    override fun saveNotifications(notification: Notification)  = Unit
 
     private fun sendLocalBroadcast(
         broadcastKey: String,

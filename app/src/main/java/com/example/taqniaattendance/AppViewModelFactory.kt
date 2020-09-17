@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
 import com.example.taqniaattendance.ui.info.InfoViewModel
+import com.example.taqniaattendance.ui.notification.NotificationsViewModel
 import com.example.taqniaattendance.ui.searching.VehiclesViewModel
 
 class AppViewModelFactory(
@@ -19,6 +20,9 @@ class AppViewModelFactory(
 
                     isAssignableFrom(InfoViewModel::class.java) ->
                         InfoViewModel(tasksRepository)
+
+                    isAssignableFrom(NotificationsViewModel::class.java) ->
+                        NotificationsViewModel(tasksRepository)
 
                     else ->
                         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -24,6 +24,7 @@ object Constants {
     object PreferenceFile {
         const val DEFAULT_PREF = "default_pref"
         const val SETTINGS_PREF = "settings_pref"
+        const val NOTIFICATIONS_PREF = "notifications_pref"
     }
 
     object User {

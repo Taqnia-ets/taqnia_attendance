@@ -110,7 +110,8 @@
                     android:padding="@dimen/dim_6_dp"
                     android:layout_marginEnd="@dimen/dim_8_dp"
                     android:layout_toStartOf="@+id/ivInfo"
-                    android:src="@drawable/ic_notification"
+                    android:onClick="@{() -> viewmodel.showNotifications()}"
+                    android:src="@drawable/ic_notification_black"
                     android:background="@drawable/shape_circle_cancan_color"/>
 
             </RelativeLayout>

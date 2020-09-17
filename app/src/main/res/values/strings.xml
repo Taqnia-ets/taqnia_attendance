@@ -42,4 +42,7 @@
     <!-- Info -->
     <string name="department">Department</string>
     <string name="sub_department">Sub Department</string>
+
+    <!-- Notifications -->
+    <string name="no_notifications">You have no notifications.</string>
 </resources>

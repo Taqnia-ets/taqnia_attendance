@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="notification"
+            type="com.example.taqniaattendance.data.model.notification.Notification" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dim_11_dp"
+        android:paddingTop="@dimen/dim_15_dp"
+        android:paddingBottom="@dimen/dim_15_dp"
+        android:paddingEnd="@dimen/dim_16_dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvIcon"
+            android:layout_width="@dimen/dim_40_dp"
+            android:layout_height="@dimen/dim_40_dp"
+            app:cardElevation="@dimen/dim_3_dp"
+            android:layout_marginStart="@dimen/dim_5_dp"
+            android:layout_marginTop="@dimen/dim_5_dp"
+            android:layout_marginEnd="@dimen/dim_14_dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dim_12_dp">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_notification"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/llNotificationContent"
+            android:orientation="vertical"
+            android:layout_toStartOf="@+id/tvDate"
+            android:layout_toEndOf="@+id/cvIcon">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitle"
+            android:textAlignment="viewStart"
+            android:maxLines="1"
+            android:textSize="@dimen/dim_18_sp"
+            android:fontFamily="@font/bahij_janna_bold"
+            android:textColor="@color/masala"
+            android:includeFontPadding="false"
+            android:text="@{notification.title}"/>
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvBody"
+                android:layout_marginTop="@dimen/dim_mince_4_dp"
+                android:textAlignment="viewStart"
+                android:includeFontPadding="false"
+                android:fontFamily="@font/bahij_janna_bold"
+                android:textSize="@dimen/dim_15_sp"
+                android:text="@{notification.body}"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDate"
+            android:textAlignment="viewStart"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/bahij_janna_bold"
+            android:textSize="@dimen/dim_15_sp"
+            android:text="@{notification.date}"/>
+
+    </RelativeLayout>
+</layout>

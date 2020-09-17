@@ -4,6 +4,7 @@ import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.history.HistoryResponse
 import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.data.model.login.LoginResponse
+import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
 import com.kacst.hsr.data.model.error.AppError
@@ -51,6 +52,12 @@ interface DataSource {
     fun saveUserToken(token: String?)
 
     fun deleteUserData()
+
+    interface NotificationsCallback {
+        fun onGetNotifications(notifications : List<Notification>)
+    }
+    fun getNotifications(callback: NotificationsCallback)
+    fun saveNotifications(notification : Notification)
 
     fun saveEnvironment(environment: String)
 

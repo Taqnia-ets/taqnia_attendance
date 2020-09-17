@@ -2,18 +2,20 @@ package com.example.taqniaattendance.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import com.example.taqniaattendance.App
-import com.example.taqniaattendance.data.model.LoggedInUser
+import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.user.User
-import com.example.taqniaattendance.util.Constants.PreferenceFile
 import com.example.taqniaattendance.util.Constants.Environment
+import com.example.taqniaattendance.util.Constants.PreferenceFile
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.util.LinkedHashSet
 
 
 object PrefsHelper {
 
     private var token: String? = null
+    private val gson by lazy { Gson() }
 
     val prefs: (String) -> SharedPreferences = {
         App.getInstance().getSharedPreferences(
@@ -39,6 +41,22 @@ object PrefsHelper {
         Constants.User.USER,
         com.example.taqniaattendance.data.model.user.User::class.java
     )
+
+    fun saveNotification(notification: Notification) {
+        val previousCached = getNotifications()
+        previousCached.add(0, notification)
+        val jsonStr = gson.toJson(previousCached)
+        saveString(PreferenceFile.NOTIFICATIONS_PREF, jsonStr)
+    }
+
+    fun getNotifications() : MutableList<Notification> {
+        val json = getString(PreferenceFile.NOTIFICATIONS_PREF)
+        if (json.isNullOrBlank())
+            return mutableListOf<Notification>()
+
+        val listType = object : TypeToken<MutableList<Notification>>() {}.type
+        return gson.fromJson<MutableList<Notification>>(json, listType)
+    }
 
 //    fun saveLanguage(language: String) {
 //        saveString(

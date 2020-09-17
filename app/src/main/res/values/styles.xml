@@ -35,10 +35,19 @@
         <item name="bottomSheetStyle">@style/InfoModalStyle</item>
     </style>
 
+    <style name="NotificatoinsBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/NotificationsModalStyle</item>
+    </style>
+
     <style name="InfoModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_taqnia_colors_cornered</item>
     </style>
 
+    <style name="NotificationsModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_white_top_cornered</item>
+    </style>
 
 </resources>

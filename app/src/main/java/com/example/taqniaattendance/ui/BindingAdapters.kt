@@ -6,6 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.data.model.history.Punch
+import com.example.taqniaattendance.data.model.notification.Notification
+import com.example.taqniaattendance.ui.notification.NotificationsAdapter
 import com.example.taqniaattendance.ui.searching.BookAdapter
 
 import com.example.taqniaattendance.ui.searching.VehiclesAdapter
@@ -38,6 +40,15 @@ fun RecyclerView.setBooks(punches: List<Punch>?) {
             val bookAdapter = BookAdapter()
             bookAdapter.submitList(punches)
             adapter = bookAdapter
+    }
+}
+
+@BindingAdapter("app:items")
+fun RecyclerView.setItem(items: List<Notification>?) {
+    if (items != null) {
+        val itemsAdapter = NotificationsAdapter()
+        itemsAdapter.submitList(items)
+        adapter = itemsAdapter
     }
 }
 

@@ -1,21 +1,26 @@
 package com.example.taqniaattendance.data.firebase
 
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.media.RingtoneManager
-import android.util.Log
-import com.google.firebase.messaging.FirebaseMessagingService
-import com.google.firebase.messaging.RemoteMessage
+import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.taqniaattendance.R
+import com.example.taqniaattendance.ServiceLocator
+import com.example.taqniaattendance.data.model.notification.Notification
+import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.ui.login.LoginActivity
-import com.example.taqniaattendance.ui.searching.VehiclesActivity
 import com.example.taqniaattendance.util.Constants
 import com.example.taqniaattendance.util.LogsUtil
+import com.example.taqniaattendance.util.ValidationUtil
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import java.lang.Exception
+import java.text.DateFormat
+import java.util.*
+import javax.inject.Inject
 
 
 class CloudMessagingService : FirebaseMessagingService() {
@@ -25,6 +30,37 @@ class CloudMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(p0)
         p0?.let { prepareNotification(it) }
     }
+
+    override fun handleIntent(p0: Intent?) {
+        super.handleIntent(p0)
+
+        p0?.extras?.apply {
+            val title  = this["title"]?.toString()
+            val body =  this["body"]?.toString()
+            val date = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH).format(Calendar.getInstance().time) ?: ""
+            LogsUtil.printErrorLog("FCM", "title: Value: $title")
+            LogsUtil.printErrorLog("FCM", "body: Value: $body")
+
+            if (title == null || body == null)
+                return
+
+            try {
+                val notification = Notification(title, body, date)
+                ServiceLocator.provideRepository().saveNotifications(notification)
+                ServiceLocator.provideRepository()
+                    .getNotifications(object : DataSource.NotificationsCallback {
+                        override fun onGetNotifications(notifications: List<Notification>) {
+                            LogsUtil.printErrorLog("saved notifications", notifications.toString())
+                        }
+                    })
+            } catch (e: Exception) {
+                LogsUtil.printErrorLog("Crash notifications", e.message)
+
+            }
+        }
+
+        }
+
 
     private fun prepareNotification(p0: RemoteMessage) {
         val dataMap = p0.getData()
