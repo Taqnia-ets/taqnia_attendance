@@ -6,11 +6,11 @@ import java.lang.NumberFormatException
 /**
  * convert string value to Int in case there is error in number format it will return zero
  */
-fun String.toIntOrZero(): Int {
-    try {
-        return this.toInt()
+fun String?.toIntOrZero(): Int {
+    return try {
+        this?.toInt() ?: 0
     }catch (e : NumberFormatException) {
-        return 0
+        0
     }
 }
 

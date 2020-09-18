@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="departmentWorkingHours"
+            type="int" />
+
+        <variable
+            name="attendance"
+            type="com.example.taqniaattendance.data.model.history.Attendance" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{attendance.getDisplayWorkingHours()}"
+            android:includeFontPadding="false"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/dim_11_sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bahij_janna_bold"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHours"
+            android:layout_centerHorizontal="true"
+            android:progress="@{attendance.getEmployeeWorkingHoursAsInt()}"
+            android:max="@{departmentWorkingHours}"
+            android:minHeight="@dimen/dim_90_dp"
+            android:minWidth="@dimen/dim_90_dp"
+            android:rotation="270"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progressBar"
+            android:text="@{attendance.getDayName()}"
+            android:textSize="@dimen/dim_11_sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bahij_janna_bold"/>
+
+    </RelativeLayout>
+</layout>

@@ -2,11 +2,17 @@ package com.example.taqniaattendance.data.model.history
 
 import android.os.Parcelable
 import com.example.taqniaattendance.R
+import com.example.taqniaattendance.util.LogsUtil
 import com.example.taqniaattendance.util.fromMMMDDYYYYToDate
+import com.example.taqniaattendance.util.toIntOrZero
 import com.example.taqniaattendance.util.toMMMDDYYYYFormat
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import timber.log.Timber
+import java.lang.Exception
+import java.time.Year
+import java.util.*
 
 @Parcelize
 data class Attendance(
@@ -64,6 +70,22 @@ data class Attendance(
 
     fun getDateAsObject() = date.fromMMMDDYYYYToDate()
 
+    fun getDisplayWorkingHours() : String =
+        try {
+            LogsUtil.printErrorLog("all last week","${workingHours?.substringBefore(":","0")}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")} h")
+            "${workingHours?.substringBefore(":","0")?.trim()}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")?.trim()} h"
+        } catch (e : Exception) {
+            Timber.e(e)
+            "0.0 h"
+        }
+
+    fun getEmployeeWorkingHoursAsInt() = getDisplayWorkingHours().toIntOrZero()
+
+    fun getDayName() : String {
+        val date = getDateAsObject()
+        val calendar = Calendar.getInstance().apply { this.time= date}
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH)?.substring(0, 1) ?: ""
+    }
     companion object {
         const val CHECK_IN = "Check-In"
         const val CHECK_OUT = "Check-Out"

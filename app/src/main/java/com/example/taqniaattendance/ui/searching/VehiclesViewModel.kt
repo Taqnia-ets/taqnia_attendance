@@ -12,6 +12,7 @@ import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
+import com.example.taqniaattendance.ui.notification.NotificationsViewModel
 import com.example.taqniaattendance.util.*
 import com.github.mikephil.charting.data.BarEntry
 import com.google.android.gms.tasks.OnCompleteListener
@@ -65,7 +66,7 @@ class VehiclesViewModel(
 //    }.flow.cachedIn(viewModelScope)
 
     init {
-//        attendanceHistory.value = getHistory()
+        attendanceHistory.value = buildTestHistory()
         getHistory()
         refreshUser()
 //        setPreviousWeekSummary(attendanceHistory.value!!)
@@ -183,13 +184,15 @@ class VehiclesViewModel(
     private fun refreshUser() {
         repository.getSavedUser(object : DataSource.UserCallback {
             override fun onGetUser(user: User?) {
+                workingHours.value = user?.workingHours ?: DEFAULT_WORKING_HOURS
                 user?.let {
                     userName.value = it.name
-                    workingHours.value = it.workingHours
                     repository.refreshUserInfo(it, getUserCallback())
                 }
             }
-            override fun onFailure(error: AppError) = Unit
+            override fun onFailure(error: AppError) {
+                workingHours.value = DEFAULT_WORKING_HOURS
+            }
         })
     }
 
@@ -288,6 +291,7 @@ class VehiclesViewModel(
     companion object{
         const val CHECK_IN = "check-in"
         const val CHECK_OUT = "check-out"
+        const val DEFAULT_WORKING_HOURS = "8"
     }
 //    fun searchForVehicle(
 //        value: String,

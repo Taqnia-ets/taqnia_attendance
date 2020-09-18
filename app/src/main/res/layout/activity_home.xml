@@ -190,6 +190,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="7"
+                        android:visibility="gone"
                         android:layout_marginStart="@dimen/dim_16_dp"
                         android:layout_marginEnd="@dimen/dim_16_dp"
                         android:layout_below="@+id/llInterval">
@@ -364,7 +365,18 @@
                         android:layout_height="@dimen/dim_100_dp"
                         android:layout_marginStart="@dimen/dim_mince_6_dp"
                         android:layout_marginEnd="@dimen/dim_mince_6_dp"
+                        android:visibility="gone"
                         android:layout_below="@+id/llWeeklyHours"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcvSummary"
+                        tools:listitem="@layout/item_day_summary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llInterval"
+                        android:orientation="horizontal"
+                        android:background="@color/color_white"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                     <LinearLayout
                         android:id="@+id/llWeekDays"
@@ -373,9 +385,10 @@
                         android:orientation="horizontal"
                         android:gravity="center_horizontal"
                         android:weightSum="7"
+                        android:visibility="gone"
                         android:layout_marginStart="@dimen/dim_16_dp"
                         android:layout_marginEnd="@dimen/dim_16_dp"
-                        android:layout_below="@+id/bcSummary">
+                        android:layout_below="@+id/rcvSummary">
 
 
                             <com.google.android.material.textview.MaterialTextView
@@ -452,7 +465,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dim_60_dp"
-                        android:layout_below="@+id/llWeekDays"
+                        android:layout_below="@+id/rcvSummary"
                         android:layout_weight="1.5"
 
                         android:paddingTop="@dimen/dim_7_dp">

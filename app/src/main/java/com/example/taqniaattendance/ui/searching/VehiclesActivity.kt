@@ -97,6 +97,13 @@ class VehiclesActivity : BaseActivity() {
             mDialogSuccess.show()
         })
 
+        viewModel.workingHours.observe(this@VehiclesActivity, Observer {
+            if (viewDataBinding.rcvSummary.adapter != null)
+                return@Observer
+
+            viewDataBinding.rcvSummary.adapter = SummaryAdapter(it.toIntOrZero()).apply { submitList(viewModel.attendanceHistory.value) }
+        })
+
 //        lifecycleScope.launch {
 //            viewModel.attendanceHistory.collect {
 //                historyAdapter.submitData(it)

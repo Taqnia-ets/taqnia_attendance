@@ -9,6 +9,7 @@ import com.example.taqniaattendance.data.model.history.Punch
 import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.ui.notification.NotificationsAdapter
 import com.example.taqniaattendance.ui.searching.BookAdapter
+import com.example.taqniaattendance.ui.searching.SummaryAdapter
 
 import com.example.taqniaattendance.ui.searching.VehiclesAdapter
 
@@ -49,6 +50,13 @@ fun RecyclerView.setItem(items: List<Notification>?) {
         val itemsAdapter = NotificationsAdapter()
         itemsAdapter.submitList(items)
         adapter = itemsAdapter
+    }
+}
+
+@BindingAdapter("app:attendances")
+fun RecyclerView.setSummary(items: List<Attendance>?) {
+    if (items != null) {
+        (this.adapter as SummaryAdapter).submitList(items)
     }
 }
 
