@@ -4,7 +4,7 @@
     <data>
         <variable
             name="departmentWorkingHours"
-            type="int" />
+            type="Double" />
 
         <variable
             name="attendance"
@@ -28,23 +28,41 @@
             android:fontFamily="@font/bahij_janna_bold"/>
 
         <ProgressBar
-            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvHours"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
-            android:progress="@{attendance.getEmployeeWorkingHoursAsInt()}"
-            android:max="@{departmentWorkingHours}"
-            android:minHeight="@dimen/dim_90_dp"
-            android:minWidth="@dimen/dim_90_dp"
+            android:paddingStart="@dimen/dim_mince_25_dp"
+            android:paddingEnd="@dimen/dim_mince_25_dp"
+            android:max="100"
+            android:minHeight="@dimen/dim_220_dp"
+            android:minWidth="@dimen/dim_220_dp"
             android:rotation="270"/>
 
+        <View
+            android:id="@+id/viewBarBg"
+            android:layout_width="@dimen/dim_10_dp"
+            android:layout_height="@dimen/dim_100_dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvHours"
+            android:background="@color/color_mc_default_img_bg"/>
+
+        <View
+            android:id="@+id/viewBar"
+            android:layout_width="@dimen/dim_10_dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/tvDay"
+            android:background="@color/colorPrimaryDark"/>
+
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/progressBar"
+            android:layout_below="@+id/viewBarBg"
             android:text="@{attendance.getDayName()}"
             android:textSize="@dimen/dim_11_sp"
             android:textColor="@color/black"

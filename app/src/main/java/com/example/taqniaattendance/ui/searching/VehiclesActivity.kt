@@ -101,7 +101,9 @@ class VehiclesActivity : BaseActivity() {
             if (viewDataBinding.rcvSummary.adapter != null)
                 return@Observer
 
-            viewDataBinding.rcvSummary.adapter = SummaryAdapter(it.toIntOrZero()).apply { submitList(viewModel.attendanceHistory.value) }
+            viewDataBinding.rcvSummary.adapter = SummaryAdapter(it?.toDoubleOrNull() ?: 0.0).apply {
+                submitList(viewModel.attendanceHistory.value?.take(7)) //don't pass more than 7 items
+            }
         })
 
 //        lifecycleScope.launch {

@@ -83,7 +83,7 @@ class VehiclesViewModel(
 //                val x =historyAsList?.onEach { if (it.punches.isNullOrEmpty())  it.punches = listOf(Punch())}
                 historyAsList?.let {
                     attendanceHistory.value = it
-                    setPreviousWeekSummary(it)
+                    setPreviousWeekSummary(it.take(7))
                     expectedLeaveTime.value = getExpectedLeaveTime(it.first(), workingHours.value)
                 }
             }
@@ -131,10 +131,12 @@ class VehiclesViewModel(
             "8:30 12/Feb/2020",
             "5",
             "Five",
-            "07:13:00"
+            "07:15:00"
         )
 
-        return listOf(x0,x1,x1,x1,x1,x1,x1,x1,x1,x1)
+        val history = listOf(x0,x1,x1,x1,x1,x1,x1,x1,x1)
+        setPreviousWeekSummary(history)
+        return history
 
 
     }
@@ -201,7 +203,7 @@ class VehiclesViewModel(
             user?.let {
                 //if there is no data then it sets in getSavedUser, this will helps in first time user opens the app
                 userName.value = it.name
-                workingHours.value = it.workingHours
+                workingHours.value = it.workingHours ?: DEFAULT_WORKING_HOURS
             }
         }
 
@@ -218,34 +220,29 @@ class VehiclesViewModel(
 
     private fun setPreviousWeekSummary(attendances: List<Attendance?>) {
 
-        val calendar = Calendar.getInstance()
-        val index = attendances.indexOfFirst {
-            calendar.time = it?.getDateAsObject()
-            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-        }
-        Timber.e(attendances.get(index).toString())
-        val lastWeekAttendances = try {
-            attendances.subList(index +1, index + 6).reversed()
-        } catch (e : IndexOutOfBoundsException) {
-            Timber.e(e)
-            emptyList<Attendance>()
-        }
+//        val calendar = Calendar.getInstance()
+//        val index = attendances.indexOfFirst {
+//            calendar.time = it?.getDateAsObject()
+//            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
+//        }
+//        Timber.e(attendances.get(index).toString())
+//        val lastWeekAttendances = try {
+//            attendances.subList(index +1, index + 6).reversed()
+//        } catch (e : IndexOutOfBoundsException) {
+//            Timber.e(e)
+//            emptyList<Attendance>()
+//        }
 
-        lastWeekAttendances.first()?.getDateAsObject()?.let {
+        attendances.first()?.getDateAsObject()?.let {
             weekSummaryFirstDate.value = DateFormat.getDateInstance(DateFormat.MEDIUM).format(it)
-            val weekLastDate = Calendar.getInstance().apply {
-                time = it
-                add(Calendar.DAY_OF_MONTH, 6)
+//            val weekLastDate = Calendar.getInstance().apply {
+//                time = it
+//                add(Calendar.DAY_OF_MONTH, 6)
+//            }
+
+            attendances.last()?.getDateAsObject()?.let {
+                weekSummaryLastDate.value =  DateFormat.getDateInstance(DateFormat.MEDIUM).format(it)
             }
-            weekSummaryLastDate.value =  DateFormat.getDateInstance(DateFormat.MEDIUM).format(weekLastDate.time)
-        }
-
-        lastWeekAttendances.forEach {
-            LogsUtil.printDebugLog(it?.date, it?.workingHours)
-        }
-
-        lastWeekSummaryStatistics.value = lastWeekAttendances.map {
-            BarEntry(index.toFloat(),  it?.workingHours.getDisplayWorkingHours())
         }
     }
 

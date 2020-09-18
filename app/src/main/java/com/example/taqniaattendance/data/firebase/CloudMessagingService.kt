@@ -17,6 +17,7 @@ import com.example.taqniaattendance.util.LogsUtil
 import com.example.taqniaattendance.util.ValidationUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.kacst.hsr.data.model.error.AppError
 import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
@@ -32,36 +33,41 @@ class CloudMessagingService : FirebaseMessagingService() {
     }
 
     override fun handleIntent(p0: Intent?) {
+
+        val token = ServiceLocator.providePreference().getToken()
+        if (token.isNullOrBlank())
+            return
+
         super.handleIntent(p0)
-
         p0?.extras?.apply {
-            val title  = this["title"]?.toString()
-            val body =  this["body"]?.toString()
-            val date = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH).format(Calendar.getInstance().time) ?: ""
-            LogsUtil.printErrorLog("FCM", "title: Value: $title")
-            LogsUtil.printErrorLog("FCM", "body: Value: $body")
-
-            if (title == null || body == null)
-                return
-
-            try {
-                val notification = Notification(title, body, date)
-                ServiceLocator.provideRepository().saveNotifications(notification)
-                ServiceLocator.provideRepository()
-                    .getNotifications(object : DataSource.NotificationsCallback {
-                        override fun onGetNotifications(notifications: List<Notification>) {
-                            LogsUtil.printErrorLog("saved notifications", notifications.toString())
-                        }
-                    })
-            } catch (e: Exception) {
-                LogsUtil.printErrorLog("Crash notifications", e.message)
-
-            }
+            handleNotification(this)
         }
+    }
+
+    private fun handleNotification(bundle: Bundle) {
+        val title  = bundle["title"]?.toString()
+        val body =  bundle["body"]?.toString()
+        val date = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH).format(Calendar.getInstance().time) ?: ""
+        LogsUtil.printErrorLog("FCM", "title: Value: $title")
+        LogsUtil.printErrorLog("FCM", "body: Value: $body")
+
+        if (title == null || body == null)
+            return
+
+        try {
+            val notification = Notification(title, body, date)
+            ServiceLocator.provideRepository().saveNotifications(notification)
+            ServiceLocator.provideRepository()
+                .getNotifications(object : DataSource.NotificationsCallback {
+                    override fun onGetNotifications(notifications: List<Notification>) {
+                        LogsUtil.printErrorLog("saved notifications", notifications.toString())
+                    }
+                })
+        } catch (e: Exception) {
+            LogsUtil.printErrorLog("Crash notifications", e.message)
 
         }
-
-
+    }
     private fun prepareNotification(p0: RemoteMessage) {
         val dataMap = p0.getData()
         val title =  if (!TextUtils.isEmpty(dataMap.get("title"))) dataMap.get("title").toString() else p0.notification?.title

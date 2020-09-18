@@ -13,6 +13,7 @@ import timber.log.Timber
 import java.lang.Exception
 import java.time.Year
 import java.util.*
+import kotlin.math.roundToInt
 
 @Parcelize
 data class Attendance(
@@ -70,16 +71,41 @@ data class Attendance(
 
     fun getDateAsObject() = date.fromMMMDDYYYYToDate()
 
-    fun getDisplayWorkingHours() : String =
+    fun getDisplayWorkingHours() : String {
         try {
-            LogsUtil.printErrorLog("all last week","${workingHours?.substringBefore(":","0")}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")} h")
-            "${workingHours?.substringBefore(":","0")?.trim()}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")?.trim()} h"
-        } catch (e : Exception) {
-            Timber.e(e)
-            "0.0 h"
-        }
+            var displayTime : String= "${workingHours?.substringBefore(":", "0")
+                ?.trim()}.${workingHours?.substringAfter(":", "0")?.substringBefore(":", "0")
+                ?.trim()}h"
 
-    fun getEmployeeWorkingHoursAsInt() = getDisplayWorkingHours().toIntOrZero()
+            if (displayTime.first().equals('0', true))
+                displayTime = displayTime.substring(1)
+
+            return displayTime
+
+        } catch (e: Exception) {
+            Timber.e(e)
+            return "0.0h"
+        }
+    }
+
+    fun getEmployeeWorkingHoursAsDouble(): Double =         try {
+        LogsUtil.printErrorLog("all last week","${workingHours?.substringBefore(":","0")}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")} h")
+        "${workingHours?.substringBefore(":","0")?.trim()}.${workingHours?.substringAfter(":","0")?.substringBefore(":","0")?.trim()}".toDoubleOrNull() ?: 0.0
+    } catch (e : Exception) {
+        Timber.e(e)
+        0.0
+    }
+
+    fun getEmployeeWorkingHoursPercentage(departmentWorkingHours: Double) : Int {
+        try {
+            val workingHoursPercentage =  (280 / departmentWorkingHours) * getEmployeeWorkingHoursAsDouble()
+            return workingHoursPercentage.roundToInt()
+        } catch (e : IllegalArgumentException) {
+            Timber.e(e)
+            return 0
+        }
+    }
+
 
     fun getDayName() : String {
         val date = getDateAsObject()
