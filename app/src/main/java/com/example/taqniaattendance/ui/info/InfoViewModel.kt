@@ -2,12 +2,10 @@ package com.example.taqniaattendance.ui.info
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.taqniaattendance.data.model.user.DepartmentLocation
-import com.example.taqniaattendance.data.model.user.Geometry
 import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.data.source.Repository
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 
 class InfoViewModel(
     private val repository: Repository

@@ -4,7 +4,6 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.taqniaattendance.R
@@ -14,14 +13,11 @@ import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.ui.login.LoginActivity
 import com.example.taqniaattendance.util.Constants
 import com.example.taqniaattendance.util.LogsUtil
-import com.example.taqniaattendance.util.ValidationUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.kacst.hsr.data.model.error.AppError
 import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
-import javax.inject.Inject
 
 
 class CloudMessagingService : FirebaseMessagingService() {

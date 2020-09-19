@@ -1,4 +1,4 @@
-package com.kacst.hsr.data.model.error
+package com.example.taqniaattendance.data.model.error
 
 import android.os.Parcelable
 import com.google.gson.annotations.Expose

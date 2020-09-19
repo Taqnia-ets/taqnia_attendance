@@ -3,8 +3,6 @@ package com.example.taqniaattendance.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.taqniaattendance.ServiceLocator
-import com.example.taqniaattendance.data.LoginDataSource
-import com.example.taqniaattendance.data.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

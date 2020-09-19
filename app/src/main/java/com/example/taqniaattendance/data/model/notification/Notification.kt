@@ -1,7 +1,6 @@
 package com.example.taqniaattendance.data.model.notification
 
 import android.os.Parcelable
-import com.example.taqniaattendance.util.Constants
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize

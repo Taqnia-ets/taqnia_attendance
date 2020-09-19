@@ -1,25 +1,16 @@
 package com.example.taqniaattendance.data.source
 
-import com.example.taqniaattendance.data.Result
-import com.example.taqniaattendance.data.model.LoggedInUser
 import com.example.taqniaattendance.data.model.history.HistoryRequest
 import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 
 class Repository(
     private val localDataSource: DataSource,
     private val remoteDataSource: DataSource
 ) : DataSource {
-
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = Result.Success<LoggedInUser>(LoggedInUser("Fgsdf","fedsg"))
-
-        return result
-    }
 
     override fun getHistory(historyRequest: HistoryRequest, callback: DataSource.HistoryCallback) {
         remoteDataSource.getHistory(historyRequest, callback)
@@ -91,22 +82,6 @@ class Repository(
 
     override fun getNotifications(callback: DataSource.NotificationsCallback)
             = localDataSource.getNotifications(callback)
-//    suspend fun deleteWords()
-//            = localDataSource.deleteWords()
-//
-//    /**
-//     * Check how you can use error object in this situation..!!!
-//     */
-//    fun getAllWords(): LiveData<PagedList<Word>> {
-//        val words = localDataSource.getAllWords() as Success
-//        return words.data
-//    }
-//
-//    suspend fun insertWord(word: Word)
-//            = localDataSource.insertWord(word)
-//
-//    suspend fun deleteWord(word: Word)
-//            = localDataSource.deleteWord(word)
 
     companion object {
 

@@ -7,7 +7,7 @@ import com.example.taqniaattendance.data.model.login.LoginResponse
 import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.data.model.punch.NewPunch
 import com.example.taqniaattendance.data.model.user.User
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 
 
 interface DataSource {

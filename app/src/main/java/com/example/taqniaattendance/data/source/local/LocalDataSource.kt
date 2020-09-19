@@ -9,16 +9,11 @@ import com.example.taqniaattendance.util.PrefsHelper
 
 import com.example.taqniaattendance.data.source.DataSource
 import com.google.gson.Gson
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class LocalDataSource(
-    private val prefs: PrefsHelper,
-    private val db: WordRoomDatabase,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-): DataSource {
-
+class LocalDataSource(private val prefs: PrefsHelper): DataSource {
 
     override fun getUserToken(callback: DataSource.GetUserTokenCallback) {
         val token = prefs.getToken()
@@ -84,25 +79,6 @@ class LocalDataSource(
 
     override fun logout(callback: DataSource.LogOutCallback) = Unit
 
-//    override fun getAllWords(): Result<LiveData<PagedList<Word>>> {
-//        val words = db.wordDao.getAllWords().toLiveData(pageSize = 50)
-//        return Success(words)
-//    }
-//
-//    /**
-//     * This is an example on how to switch main Dispatcher to [ioDispatcher]
-//     * using withContext(ioDispatcher).
-//     */
-//    override suspend fun deleteWords() = withContext(ioDispatcher) {
-//        db.wordDao.deleteAll()
-//    }
-//
-//    override suspend fun insertWord(word: Word)
-//            = db.wordDao.insertWord(word)
-//
-//    override suspend fun deleteWord(word: Word)
-//            = db.wordDao.deleteWord(word)
-
     override fun getHistory(historyRequest: HistoryRequest, callback: DataSource.HistoryCallback) =
         Unit
 
@@ -116,7 +92,7 @@ class LocalDataSource(
     companion object {
         private var instance: LocalDataSource? = null
 
-        @JvmStatic fun getInstance(prefs: PrefsHelper, db: WordRoomDatabase)
-                = instance ?: LocalDataSource(prefs, db).also{ instance = it }
+        @JvmStatic fun getInstance(prefs: PrefsHelper)
+                = instance ?: LocalDataSource(prefs).also{ instance = it }
     }
 }

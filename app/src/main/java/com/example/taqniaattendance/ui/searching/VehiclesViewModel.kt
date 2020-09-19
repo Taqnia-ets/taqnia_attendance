@@ -12,12 +12,11 @@ import com.example.taqniaattendance.data.model.user.User
 import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
-import com.example.taqniaattendance.ui.notification.NotificationsViewModel
 import com.example.taqniaattendance.util.*
 import com.github.mikephil.charting.data.BarEntry
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 import timber.log.Timber
 import java.lang.Exception
 import java.text.DateFormat

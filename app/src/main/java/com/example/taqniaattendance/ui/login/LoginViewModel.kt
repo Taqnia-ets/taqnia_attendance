@@ -11,7 +11,7 @@ import com.example.taqniaattendance.data.model.login.LoginResponse
 import com.example.taqniaattendance.data.source.DataSource
 import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.util.Event
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 
 class LoginViewModel(private val repository: Repository) : ViewModel() {
 

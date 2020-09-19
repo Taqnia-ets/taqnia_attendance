@@ -22,7 +22,7 @@ import com.example.taqniaattendance.util.NetworkUtil
 import com.example.taqniaattendance.util.PrefsHelper
 import com.example.taqniaattendance.util.PrefsHelper.getToken
 import com.example.taqniaattendance.util.PrefsHelper.saveToken
-import com.kacst.hsr.data.model.error.AppError
+import com.example.taqniaattendance.data.model.error.AppError
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.*

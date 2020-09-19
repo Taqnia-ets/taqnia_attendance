@@ -5,13 +5,11 @@ import androidx.room.Room
 import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.util.PrefsHelper
 import com.example.taqniaattendance.data.source.local.LocalDataSource
-import com.example.taqniaattendance.data.source.local.WordRoomDatabase
 import com.example.taqniaattendance.data.source.remote.RemoteDataSource
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
 
 object ServiceLocator {
 
-    private var database: WordRoomDatabase? = null
     private var repository: Repository? = null
     private var historyDataSource: HistoryRemoteDataSource = HistoryRemoteDataSource
 
@@ -24,16 +22,6 @@ object ServiceLocator {
     @JvmStatic
     fun providePreference(): PrefsHelper = synchronized(this) {
         return PrefsHelper
-    }
-
-    private fun createDatabase(): WordRoomDatabase {
-        val result = Room.databaseBuilder(
-            App.getInstance(),
-            WordRoomDatabase::class.java,
-            "Tasks.db"
-        ).build()
-        database = result
-        return result
     }
 
     private fun createRepository(): Repository {
@@ -49,8 +37,7 @@ object ServiceLocator {
      * You can add constructors to the local data source and return the same instance.
      */
     private fun createLocalDataSource(): LocalDataSource {
-        val database = database ?: createDatabase()
-        return LocalDataSource(providePreference(), database)
+        return LocalDataSource(providePreference())
     }
 
     fun resetRepository() = synchronized(this) {
