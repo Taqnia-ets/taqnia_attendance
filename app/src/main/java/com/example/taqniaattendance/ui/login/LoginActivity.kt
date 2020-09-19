@@ -4,30 +4,23 @@ import android.content.Intent
 import androidx.lifecycle.Observer
 import android.os.Bundle
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.taqniaattendance.R
 import com.example.taqniaattendance.data.model.login.LoginRequest
 import com.example.taqniaattendance.ui.BaseActivity
-import com.example.taqniaattendance.ui.searching.VehiclesActivity
+import com.example.taqniaattendance.ui.searching.MainActivity
 import com.example.taqniaattendance.util.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.concurrent.Executor
 
 class LoginActivity : BaseActivity() {
 
@@ -50,7 +43,7 @@ class LoginActivity : BaseActivity() {
 //                showLoginFailed(R.string.invalid_password)
 //            }
             if (isLoggedIn) {
-                Intent(this, VehiclesActivity::class.java).also {
+                Intent(this, MainActivity::class.java).also {
                     startActivity(it)
                     finishAffinity()
                 }

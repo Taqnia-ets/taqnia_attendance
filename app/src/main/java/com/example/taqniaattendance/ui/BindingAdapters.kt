@@ -1,17 +1,16 @@
 package com.example.taqniaattendance.ui
 
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.data.model.history.Punch
 import com.example.taqniaattendance.data.model.notification.Notification
 import com.example.taqniaattendance.ui.notification.NotificationsAdapter
-import com.example.taqniaattendance.ui.searching.BookAdapter
+import com.example.taqniaattendance.ui.searching.PunchesAdapter
 import com.example.taqniaattendance.ui.searching.SummaryAdapter
 
-import com.example.taqniaattendance.ui.searching.VehiclesAdapter
+import com.example.taqniaattendance.ui.searching.MainAdapter
 
 
 //@BindingAdapter("app:imageUrl")
@@ -32,15 +31,15 @@ fun setHistory(
     listView: RecyclerView,
     items: List<Attendance>?
 ) {
-    (listView.adapter as VehiclesAdapter).submitList(items)
+    (listView.adapter as MainAdapter).submitList(items)
 }
 
 @BindingAdapter("app:punches")
 fun RecyclerView.setBooks(punches: List<Punch>?) {
     if (punches != null) {
-            val bookAdapter = BookAdapter()
-            bookAdapter.submitList(punches)
-            adapter = bookAdapter
+            val punchesAdapter = PunchesAdapter()
+            punchesAdapter.submitList(punches)
+            adapter = punchesAdapter
     }
 }
 

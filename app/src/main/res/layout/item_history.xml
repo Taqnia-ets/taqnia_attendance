@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.example.taqniaattendance.ui.searching.VehiclesViewModel" />
+            type="com.example.taqniaattendance.ui.searching.MainViewModel" />
     </data>
 
         <RelativeLayout android:id="@+id/llRootView"

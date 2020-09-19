@@ -6,7 +6,7 @@ import com.example.taqniaattendance.data.source.Repository
 import com.example.taqniaattendance.data.source.remote.history.HistoryRemoteDataSource
 import com.example.taqniaattendance.ui.info.InfoViewModel
 import com.example.taqniaattendance.ui.notification.NotificationsViewModel
-import com.example.taqniaattendance.ui.searching.VehiclesViewModel
+import com.example.taqniaattendance.ui.searching.MainViewModel
 
 class AppViewModelFactory(
         private val tasksRepository: Repository // Inject repository in constructor because it may be test double.
@@ -15,8 +15,8 @@ class AppViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             with (modelClass) {
                 when {
-                    isAssignableFrom(VehiclesViewModel::class.java) ->
-                        VehiclesViewModel(tasksRepository, HistoryRemoteDataSource)
+                    isAssignableFrom(MainViewModel::class.java) ->
+                        MainViewModel(tasksRepository, HistoryRemoteDataSource)
 
                     isAssignableFrom(InfoViewModel::class.java) ->
                         InfoViewModel(tasksRepository)

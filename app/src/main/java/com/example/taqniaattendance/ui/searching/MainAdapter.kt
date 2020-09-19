@@ -2,13 +2,12 @@ package com.example.taqniaattendance.ui.searching
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.*
 import com.example.taqniaattendance.data.model.history.Attendance
 import com.example.taqniaattendance.databinding.ItemHistoryBinding
 
-class VehiclesAdapter(private val viewModel: VehiclesViewModel)
-    : ListAdapter<Attendance, VehiclesAdapter.ViewHolder>(TaskDiffCallback()) {
+class MainAdapter(private val viewModel: MainViewModel)
+    : ListAdapter<Attendance, MainAdapter.ViewHolder>(TaskDiffCallback()) {
 
     private val viewPool = RecyclerView.RecycledViewPool()
 
@@ -26,7 +25,7 @@ class VehiclesAdapter(private val viewModel: VehiclesViewModel)
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            viewModel: VehiclesViewModel,
+            viewModel: MainViewModel,
             item: Attendance,
             viewPool: RecyclerView.RecycledViewPool
         ) = with(binding) {

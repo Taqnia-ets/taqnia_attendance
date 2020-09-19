@@ -6,7 +6,7 @@
 
             <variable
                 name="viewmodel"
-                type="com.example.taqniaattendance.ui.searching.VehiclesViewModel" />
+                type="com.example.taqniaattendance.ui.searching.MainViewModel" />
 
             <variable
                 name="punchType"
@@ -119,7 +119,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dim_200_dp"
-                android:layout_above="@+id/rcvVehicles"
+                android:layout_above="@+id/rcvHistory"
                 app:cardCornerRadius="@dimen/dim_30_dp"
                 android:elevation="@dimen/dim_4_dp"
                 app:cardElevation="0dp"
@@ -186,190 +186,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/llWeeklyHours"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="7"
-                        android:visibility="gone"
-                        android:layout_marginStart="@dimen/dim_16_dp"
-                        android:layout_marginEnd="@dimen/dim_16_dp"
-                        android:layout_below="@+id/llInterval">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 0)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 1)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 2)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 3)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 4)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 5)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@{viewmodel.getItemOrZeroHours(viewmodel.lastWeekSummaryStatistics, 6)}"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_height="wrap_content"
-                                android:layout_width="@dimen/dim_12_dp"
-                                app:srcCompat="@drawable/ic_minus"
-                                android:layout_marginTop="@dimen/dim_mince_6_dp"/>
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/bcSummary"
-                        android:layout_marginTop="@dimen/dim_mince_15_dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dim_100_dp"
-                        android:layout_marginStart="@dimen/dim_mince_6_dp"
-                        android:layout_marginEnd="@dimen/dim_mince_6_dp"
-                        android:visibility="gone"
-                        android:layout_below="@+id/llWeeklyHours"/>
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcvSummary"
                         tools:listitem="@layout/item_day_summary"
@@ -380,96 +196,10 @@
                         android:background="@color/color_white"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    <LinearLayout
-                        android:id="@+id/llWeekDays"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_horizontal"
-                        android:weightSum="7"
-                        android:visibility="gone"
-                        android:layout_marginStart="@dimen/dim_16_dp"
-                        android:layout_marginEnd="@dimen/dim_16_dp"
-                        android:layout_below="@+id/rcvSummary">
-
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="S"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="M"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="T"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="W"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="TH"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="F"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal"
-                                android:text="S"
-                                android:textSize="@dimen/dim_11_sp"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/bahij_janna_bold"/>
-                    </LinearLayout>
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dim_60_dp"
                         android:layout_below="@+id/rcvSummary"
-                        android:layout_weight="1.5"
-
                         android:paddingTop="@dimen/dim_7_dp">
                         <View
                             android:id="@+id/viewUnderLine"
@@ -555,7 +285,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvVehicles"
+                android:id="@+id/rcvHistory"
                 tools:listitem="@layout/item_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

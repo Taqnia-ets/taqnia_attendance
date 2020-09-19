@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name=".ui.searching.VehiclesActivity"
+            android:name=".ui.searching.MainActivity"
             android:label="@string/home"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

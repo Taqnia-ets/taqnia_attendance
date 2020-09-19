@@ -22,7 +22,7 @@ import java.lang.Exception
 import java.text.DateFormat
 import java.util.*
 
-class VehiclesViewModel(
+class MainViewModel(
     private val repository: Repository,
     private val historyDataSource : HistoryRemoteDataSource
 ) : ViewModel() {
@@ -40,7 +40,6 @@ class VehiclesViewModel(
     val snackBarText: MutableLiveData<Event<String?>> = MutableLiveData<Event<String?>>()
     val newPunchAdded = MutableLiveData<Unit>()
     val showLoading = MutableLiveData<Boolean>(false)
-    val lastWeekSummaryStatistics = MutableLiveData<List<BarEntry?>?>()
     val weekSummaryFirstDate = MutableLiveData<String?>()
     val weekSummaryLastDate = MutableLiveData<String?>()
     val openHistoryItem = MutableLiveData<Unit>()
@@ -205,12 +204,10 @@ class VehiclesViewModel(
                 workingHours.value = it.workingHours ?: DEFAULT_WORKING_HOURS
             }
         }
-
         override fun onFailure(error: AppError) {
 
         }
     }
-
     private fun getInitHistoryRequest() : HistoryRequest {
         val calendar = Calendar.getInstance()
         val month = calendar.get(Calendar.MONTH) + 1 //we add 1, according that Calendar.MONTH start from 0
@@ -219,25 +216,8 @@ class VehiclesViewModel(
 
     private fun setPreviousWeekSummary(attendances: List<Attendance?>) {
 
-//        val calendar = Calendar.getInstance()
-//        val index = attendances.indexOfFirst {
-//            calendar.time = it?.getDateAsObject()
-//            calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
-//        }
-//        Timber.e(attendances.get(index).toString())
-//        val lastWeekAttendances = try {
-//            attendances.subList(index +1, index + 6).reversed()
-//        } catch (e : IndexOutOfBoundsException) {
-//            Timber.e(e)
-//            emptyList<Attendance>()
-//        }
-
         attendances.first()?.getDateAsObject()?.let {
             weekSummaryFirstDate.value = DateFormat.getDateInstance(DateFormat.MEDIUM).format(it)
-//            val weekLastDate = Calendar.getInstance().apply {
-//                time = it
-//                add(Calendar.DAY_OF_MONTH, 6)
-//            }
 
             attendances.last()?.getDateAsObject()?.let {
                 weekSummaryLastDate.value =  DateFormat.getDateInstance(DateFormat.MEDIUM).format(it)
@@ -289,59 +269,4 @@ class VehiclesViewModel(
         const val CHECK_OUT = "check-out"
         const val DEFAULT_WORKING_HOURS = "8"
     }
-//    fun searchForVehicle(
-//        value: String,
-//        searchType: Int
-//    ) = if (searchType == SEARCH_BY_VIN.value) searchVehicleByVin(value)
-//    else searchVehicleById(value)
-//
-//    private fun searchVehicleByVin(vehicleVin: String) {
-//        showLoading.postValue(true)
-//        repository.searchVehicleByVin(vehicleVin, object : DataSource.SearchVehicleByVinCallback {
-//            override fun onGetVehicles(vehiclesList: List<Vehicle>?) {
-//                showLoading.postValue(false)
-//                vehicles.postValue(vehiclesList)
-//                LogsUtil.printErrorLog("vehiclesResponse", vehiclesList.toGson())
-//            }
-//            override fun onFailure(error: CustomError) {
-//                showLoading.postValue(false)
-//                errorResponse.postValue(error)
-//            }
-//        })
-//    }
-//
-//    private fun searchVehicleById(vehicleId: String) {
-//        showLoading.postValue(true)
-//        repository.searchVehicleById(vehicleId.toInt(), object : DataSource.SearchVehicleByIdCallback {
-//            override fun onGetVehicles(vehiclesList: List<Vehicle>?) {
-//                showLoading.postValue(false)
-//                vehicles.postValue(vehiclesList)
-//            }
-//            override fun onFailure(error: CustomError) {
-//                showLoading.postValue(false)
-//                errorResponse.postValue(error)
-//            }
-//        })
-//    }
-
-//    fun onSelectVehicle(vehicle: Vehicle) {
-//
-//        showLoading.postValue(true)
-//        // Vehicle will be saved upon getting its data.
-//        repository.getVehicleById(vehicle.id, object : DataSource.GetVehicleByIdCallback {
-//            override fun onGetVehicleById(vehicle: Vehicle?) {
-//                showLoading.postValue(false)
-//                navigation.postValue(
-//                    Navigation(HomeActivity::class.java, withClearStack = true)
-//                )
-//            }
-//            override fun onFailure(error: CustomError) {
-//                showLoading.postValue(false)
-//                errorResponse.postValue(error)
-//            }
-//        })
-//    }
-//
-//    fun openVehicleDetailsScreen()
-//            = navigation.postValue(Navigation(VehicleFormActivity::class.java))
 }

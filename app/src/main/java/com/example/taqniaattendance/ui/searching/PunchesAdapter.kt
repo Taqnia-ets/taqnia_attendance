@@ -9,7 +9,7 @@ import com.example.taqniaattendance.data.model.history.Punch
 import com.example.taqniaattendance.databinding.ItemPunchBinding
 
 
-class BookAdapter : ListAdapter<Punch, BookAdapter.CustomViewHolder>(Companion) {
+class PunchesAdapter : ListAdapter<Punch, PunchesAdapter.CustomViewHolder>(Companion) {
     companion object : DiffUtil.ItemCallback<Punch>() {
         override fun areItemsTheSame(oldItem: Punch, newItem: Punch): Boolean {
             return  oldItem === newItem

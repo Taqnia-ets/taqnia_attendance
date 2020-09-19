@@ -1,7 +1,6 @@
 package com.example.taqniaattendance.ui.searching
 
-import android.app.Activity
- import android.view.LayoutInflater
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
