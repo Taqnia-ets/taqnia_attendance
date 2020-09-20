@@ -25,6 +25,6 @@ data class LoginRequest(
     @Expose
     val mobileModel: String? = Build.MODEL,
 
-    @SerializedName("mobile_notification_type")
+    @SerializedName("mobile_notification_token")
     @Expose
     val notificationType: String? = null) : Parcelable

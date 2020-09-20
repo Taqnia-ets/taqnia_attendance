@@ -180,8 +180,8 @@ object RemoteDataSource : DataSource {
         when (responseCode) {
             ErrorConstants.ERROR_CODE_UNAUTHORIZED -> {
                 val error = getCustomError(ErrorConstants.ERROR_CODE_UNAUTHORIZED)
-//                PrefsHelper.deleteUserData()todo
-//                sendLocalBroadcast(GeneralKeys.KEY_FORCE_LOG_OUT, error) todo
+                PrefsHelper.deleteUserData()
+                sendLocalBroadcast(GeneralKeys.KEY_FORCE_LOG_OUT, error)
                 return error
             }
             ErrorConstants.ERROR_CODE_INTERNAL_SERVER_ERROR,

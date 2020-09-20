@@ -32,7 +32,7 @@ class MainViewModel(
     val showNotifications = MutableLiveData<Boolean>(false)
     val showPunchOptions = MutableLiveData<Boolean>(false)
     val userName = MutableLiveData<String?>()
-    val workingHours = MutableLiveData<String?>()
+    val workingHours = MutableLiveData<Double?>()
     val expectedLeaveTime = MutableLiveData<String?>()
     val totalAbsentDays = MutableLiveData<String?>()
     val totalLateTimes = MutableLiveData<String?>()
@@ -64,9 +64,9 @@ class MainViewModel(
 //    }.flow.cachedIn(viewModelScope)
 
     init {
-        attendanceHistory.value = buildTestHistory()
-        getHistory()
+//        attendanceHistory.value = buildTestHistory()
         refreshUser()
+        getHistory()
 //        setPreviousWeekSummary(attendanceHistory.value!!)
 
     }
@@ -133,7 +133,7 @@ class MainViewModel(
         )
 
         val history = listOf(x0,x1,x1,x1,x1,x1,x1,x1,x1)
-        setPreviousWeekSummary(history)
+        setPreviousWeekSummary(history.take(7))
         return history
 
 
@@ -184,7 +184,7 @@ class MainViewModel(
     private fun refreshUser() {
         repository.getSavedUser(object : DataSource.UserCallback {
             override fun onGetUser(user: User?) {
-                workingHours.value = user?.workingHours ?: DEFAULT_WORKING_HOURS
+                workingHours.value = user?.workingHours.getDisplayWorkingHours() ?: DEFAULT_WORKING_HOURS
                 user?.let {
                     userName.value = it.name
                     repository.refreshUserInfo(it, getUserCallback())
@@ -201,7 +201,7 @@ class MainViewModel(
             user?.let {
                 //if there is no data then it sets in getSavedUser, this will helps in first time user opens the app
                 userName.value = it.name
-                workingHours.value = it.workingHours ?: DEFAULT_WORKING_HOURS
+                workingHours.value = it.workingHours.getDisplayWorkingHours() ?: DEFAULT_WORKING_HOURS
             }
         }
         override fun onFailure(error: AppError) {
@@ -225,7 +225,7 @@ class MainViewModel(
         }
     }
 
-    private fun getExpectedLeaveTime(attendances: Attendance, workingHours: String?) : String? {
+    private fun getExpectedLeaveTime(attendances: Attendance, workingHours: Double?) : String? {
         val firstAttendanceDate = attendances.punches?.first()?.timestampObject.fromTaqniaFormatToDateObject()
 
         if (attendances.getDateAsObject()?.time?.let { DateUtils.isToday(it) } == false || workingHours == null || firstAttendanceDate == null)
@@ -235,21 +235,24 @@ class MainViewModel(
             val leaveTimeCalender = Calendar.getInstance().apply {
                 time = firstAttendanceDate
                 add(Calendar.HOUR_OF_DAY,
-                    workingHours.substringBefore(":","0")?.trim()?.toInt() ?: 0)
+                    workingHours.toString().substringBefore(".","0")?.trim()?.toInt() ?: 0)
                 add(Calendar.MINUTE,
-                    workingHours.substringAfter(":","0")?.substringBefore(":","0")?.trim()?.toInt() ?: 0)
+                    workingHours.toString().substringAfter(".","0")?.trim()?.toInt() ?: 0)
             }
 
-            return DateFormat.getTimeInstance().format(Date(leaveTimeCalender.timeInMillis))
+        return if (leaveTimeCalender.timeInMillis >= Calendar.getInstance().timeInMillis)
+            DateFormat.getTimeInstance().format(Date(leaveTimeCalender.timeInMillis))
+    else
+            "00.00"
     }
 
-        private fun String?.getDisplayWorkingHours() : Float =
+        private fun String?.getDisplayWorkingHours() : Double =
         try {
             LogsUtil.printErrorLog("all last week","${this?.substringBefore(":","0")}.${this?.substringAfter(":","0")?.substringBefore(":","0")}f".toFloat().toString())
-            "${this?.substringBefore(":","0")?.trim()}.${this?.substringAfter(":","0")?.substringBefore(":","0")?.trim()}f".toFloat()
+            "${this?.substringBefore(":","0")?.trim()}.${this?.substringAfter(":","0")?.substringBefore(":","0")?.trim()}".toDouble()
         } catch (e : Exception) {
             Timber.e(e)
-            0f
+            08.00
         }
 
     fun getItemOrZeroHours(list :List<BarEntry?>? , index : Int) : String {
@@ -267,6 +270,6 @@ class MainViewModel(
     companion object{
         const val CHECK_IN = "check-in"
         const val CHECK_OUT = "check-out"
-        const val DEFAULT_WORKING_HOURS = "8"
+        const val DEFAULT_WORKING_HOURS = 08.00
     }
 }

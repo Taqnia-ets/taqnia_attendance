@@ -49,6 +49,10 @@ class SummaryAdapter(private val departmentHours : Double) : ListAdapter<Attenda
     private fun getEmployeeWorkingHoursBarHeight(barHeight: Int, departmentWorkingHours: Double, EmployeeWorkingHours: Double) : Int {
         try {
             val workingHoursPercentage =  (barHeight / departmentWorkingHours) * EmployeeWorkingHours
+            if (workingHoursPercentage > barHeight){
+                return barHeight
+            }
+
             return workingHoursPercentage.roundToInt()
         } catch (e : IllegalArgumentException) {
             Timber.e(e)

@@ -31,6 +31,7 @@ class MainActivity : BaseActivity() {
         AppViewModelFactory(ServiceLocator.provideRepository())
     }
     private val historyAdapter by lazy { MainAdapter(viewModel) }
+    lateinit var summaryAdapter : SummaryAdapter
     private lateinit var viewDataBinding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,11 +88,23 @@ class MainActivity : BaseActivity() {
             mDialogSuccess.show()
         })
 
-        viewModel.workingHours.observe(this@MainActivity, Observer {
-//            if (viewDataBinding.rcvSummary.adapter != null)
-//                return@Observer
+//        viewModel.workingHours.observe(this@MainActivity, Observer {
+//        if (summaryAdapter != null)
+//            return@Observer
+//
+//        viewDataBinding.rcvSummary.adapter = SummaryAdapter(it?.toDoubleOrNull() ?: 0.0).apply {
+//            submitList(viewModel.attendanceHistory.value?.take(7)) //don't pass more than 7 items
+//        }
+//    })
 
-            viewDataBinding.rcvSummary.adapter = SummaryAdapter(it?.toDoubleOrNull() ?: 0.0).apply {
+        viewModel.attendanceHistory.observe(this@MainActivity, Observer {
+            viewDataBinding.rcvSummary.adapter = SummaryAdapter(viewModel.workingHours.value ?: 0.0).apply {
+                submitList(it?.take(7)) //don't pass more than 7 items
+            }
+        })
+
+        viewModel.workingHours.observe(this@MainActivity, Observer {
+            viewDataBinding.rcvSummary.adapter = SummaryAdapter(it ?: 0.0).apply {
                 submitList(viewModel.attendanceHistory.value?.take(7)) //don't pass more than 7 items
             }
         })
