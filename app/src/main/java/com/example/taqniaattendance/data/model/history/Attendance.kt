@@ -80,6 +80,9 @@ data class Attendance(
             if (displayTime.first().equals('0', true))
                 displayTime = displayTime.substring(1)
 
+            if (displayTime.contains("null", true))
+                displayTime = "0.0h"
+
             return displayTime
 
         } catch (e: Exception) {
@@ -109,8 +112,8 @@ data class Attendance(
 
     fun getDayName() : String {
         val date = getDateAsObject()
-        val calendar = Calendar.getInstance().apply { this.time= date}
-        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH)?.substring(0, 1) ?: ""
+        val calendar = date?.let { Calendar.getInstance().apply { this.time= date}}
+        return calendar?.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH)?.substring(0, 2) ?: ""
     }
     companion object {
         const val CHECK_IN = "Check-In"
