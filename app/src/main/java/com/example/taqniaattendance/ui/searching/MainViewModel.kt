@@ -226,9 +226,12 @@ class MainViewModel(
     }
 
     private fun getExpectedLeaveTime(attendances: Attendance, workingHours: Double?) : String? {
+        if (attendances.getDateAsObject()?.time?.let { DateUtils.isToday(it) } == false || workingHours == null || attendances.punches.isNullOrEmpty())
+            return null
+
         val firstAttendanceDate = attendances.punches?.first()?.timestampObject.fromTaqniaFormatToDateObject()
 
-        if (attendances.getDateAsObject()?.time?.let { DateUtils.isToday(it) } == false || workingHours == null || firstAttendanceDate == null)
+        if (firstAttendanceDate == null)
             return null
 
 
