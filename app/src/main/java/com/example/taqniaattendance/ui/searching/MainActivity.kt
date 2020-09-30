@@ -120,7 +120,7 @@ class MainActivity : BaseActivity() {
                 llExpectedLeaveTime.show()
         })
 
-        container.setupSnackbar(this@MainActivity, viewModel.snackBarText, Snackbar.LENGTH_SHORT)
+        container.setupSnackbar(this@MainActivity, viewModel.snackBarText, Snackbar.LENGTH_LONG)
 
     }
 
@@ -140,7 +140,7 @@ class MainActivity : BaseActivity() {
                                            errString: CharSequence) {
             super.onAuthenticationError(errorCode, errString)
             Toast.makeText(applicationContext,
-                "Authentication error: $errString", Toast.LENGTH_SHORT)
+                "Authentication error: $errString", Toast.LENGTH_LONG)
                 .show()
         }
 
@@ -164,7 +164,7 @@ class MainActivity : BaseActivity() {
         override fun onAuthenticationFailed() {
             super.onAuthenticationFailed()
             Toast.makeText(applicationContext, "Authentication failed",
-                Toast.LENGTH_SHORT)
+                Toast.LENGTH_LONG)
                 .show()
         }
     }

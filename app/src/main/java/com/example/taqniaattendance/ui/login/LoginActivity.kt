@@ -68,7 +68,7 @@ class LoginActivity : BaseActivity() {
             }
         })
 
-        container.setupSnackbar(this, loginViewModel.snackBarText, Snackbar.LENGTH_SHORT)
+        container.setupSnackbar(this, loginViewModel.snackBarText, Snackbar.LENGTH_LONG)
 
 
         username.afterTextChanged {
@@ -106,7 +106,7 @@ class LoginActivity : BaseActivity() {
             notificationType = notificationToken)
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, errorString, Toast.LENGTH_LONG).show()
     }
 
     fun login(loginRequest: LoginRequest) {
